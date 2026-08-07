@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centro de Recursos y Memorias</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #27224a;
+      --muted: #726c95;
+      --violet: #7357e8;
+      --pink: #ed65b4;
+      --blue: #4e9df5;
+      --surface: rgba(255,255,255,.78);
+      --line: rgba(111, 85, 207, .13);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      width: 100%;
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      overflow-x: hidden;
+      background-color: #f7f5fd;
+    }
+
+    .app-shell {
+      width: 100%;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      padding: 28px 20px 52px;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(8px);
+      pointer-events: none;
+      opacity: .72;
+      animation: drift 10s ease-in-out infinite;
+    }
+    .orb-one { width: 260px; height: 260px; background: #dfbcff; top: -90px; left: -75px; }
+    .orb-two { width: 310px; height: 310px; background: #aee5ff; right: -100px; top: 110px; animation-delay: -3s; }
+    .orb-three { width: 220px; height: 220px; background: #ffc3e6; bottom: -110px; left: 25%; animation-delay: -6s; }
+
+    .content-width { max-width: 1180px; margin: 0 auto; position: relative; z-index: 1; }
+    .topline {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 26px; font-size: .82rem; color: #635c87;
+    }
+    .brand-mark {
+      width: 38px; height: 38px; display: grid; place-items: center;
+      border-radius: 13px; color: white; background: linear-gradient(135deg, #6752e8, #e65eba);
+      box-shadow: 0 10px 22px rgba(104, 80, 219, .25);
+    }
+    .eyebrow { letter-spacing: .13em; text-transform: uppercase; font-weight: 700; font-size: .7rem; }
+
+    .hero-card {
+      border-radius: 30px;
+      padding: clamp(28px, 5vw, 58px);
+      background: linear-gradient(120deg, rgba(255,255,255,.92), rgba(248,243,255,.76));
+      border: 1px solid rgba(255,255,255,.86);
+      box-shadow: 0 24px 70px rgba(76, 65, 139, .14);
+      display: grid; grid-template-columns: 1.3fr .7fr; gap: 30px; align-items: center;
+      animation: rise .65s ease both;
+    }
+    .hero-title {
+      margin: 10px 0 15px;
+      font-family: "Fraunces", serif;
+      letter-spacing: -.045em;
+      line-height: 1.03;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+    }
+    .hero-subtitle { margin: 0; max-width: 620px; line-height: 1.65; color: var(--muted); }
+    .hero-actions { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .primary-button, .link-button, .tab-button, .icon-close {
+      border: 0; cursor: pointer; font: inherit; transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+    }
+    .primary-button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 14px 19px; border-radius: 15px;
+      background: linear-gradient(135deg, #7357e8, #ed65b4);
+      color: white; font-weight: 700;
+      box-shadow: 0 14px 24px rgba(113, 79, 223, .25);
+    }
+    .primary-button:hover, .link-button:hover { transform: translateY(-3px); box-shadow: 0 16px 25px rgba(82, 66, 156, .24); }
+    .primary-button:focus-visible, .link-button:focus-visible, .tab-button:focus-visible, .photo-card:focus-visible, .icon-close:focus-visible {
+      outline: 3px solid #2a8fff; outline-offset: 3px;
+    }
+
+    .hero-art {
+      min-height: 190px; border-radius: 24px; position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #6c52df, #a573ed 52%, #f58dc9);
+    }
+    .hero-art::before, .hero-art::after { content: ""; position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,.36); }
+    .hero-art::before { width: 210px; height: 210px; right: -42px; top: -60px; }
+    .hero-art::after { width: 145px; height: 145px; left: -37px; bottom: -54px; }
+    .spark { position: absolute; color: white; opacity: .9; }
+    .spark.one { top: 29px; left: 37px; } .spark.two { right: 38px; bottom: 31px; }
+    .art-stack { position:absolute; inset: 38px 45px; transform: rotate(-6deg); }
+    .art-note {
+      position: absolute; width: 125px; height: 82px; background: rgba(255,255,255,.89);
+      border-radius: 14px; box-shadow: 0 14px 25px rgba(45,28,110,.22);
+    }
+    .art-note:nth-child(1) { left: 7px; top: 26px; transform: rotate(-7deg); }
+    .art-note:nth-child(2) { right: 10px; top: 3px; background: #ffd0eb; transform: rotate(10deg); }
+    .art-note:nth-child(3) { left: 78px; bottom: 1px; background: #c9edff; transform: rotate(3deg); }
+    .art-note::after { content: ""; position: absolute; left: 17px; right: 17px; top: 24px; height: 7px; border-radius: 6px; background: rgba(80,65,142,.2); box-shadow: 0 16px 0 rgba(80,65,142,.13), 0 32px 0 rgba(80,65,142,.1); }
+
+    .tabs-wrap { display: flex; justify-content: center; margin: 32px 0 24px; }
+    .tabs {
+      display: inline-flex; gap: 5px; padding: 6px; border-radius: 17px;
+      background: rgba(255,255,255,.69); border: 1px solid rgba(255,255,255,.8);
+      box-shadow: 0 10px 30px rgba(76,65,135,.08);
+    }
+    .tab-button { padding: 10px 17px; border-radius: 12px; color: #625b87; font-weight: 700; background: transparent; }
+    .tab-button.is-active { color: white; background: linear-gradient(120deg, #6851df, #a568e9); box-shadow: 0 7px 14px rgba(99,74,190,.24); }
+
+    .panel { display: none; animation: fade .35s ease both; }
+    .panel.is-active { display: block; }
+    .section-heading { display: flex; gap: 12px; align-items: flex-end; justify-content: space-between; margin-bottom: 18px; }
+    .section-heading h2 { margin: 0; font-family: "Fraunces", serif; letter-spacing: -.03em; font-size: 1.8rem; }
+    .section-heading p { margin: 0; color: var(--muted); font-size: .92rem; }
+
+    .links-grid, .review-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .resource-card, .review-card {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255,255,255,.85); border-radius: 23px; padding: 22px; position: relative;
+      box-shadow: 0 14px 35px rgba(65,51,123,.1); transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .resource-card:hover, .review-card:hover { transform: translateY(-6px); box-shadow: 0 20px 42px rgba(65,51,123,.16); }
+    .card-actions { position:absolute; top:12px; right:12px; display:flex; gap:5px; z-index:2; opacity:0; transition:opacity .2s ease; }
+    .resource-card:hover .card-actions, .review-card:hover .card-actions, .photo-card:hover .card-actions, .card-actions:focus-within { opacity:1; }
+    .card-action { width:30px; height:30px; display:grid; place-items:center; border:0; border-radius:9px; background:rgba(255,255,255,.9); color:#5b4a9b; cursor:pointer; box-shadow:0 4px 10px rgba(48,35,104,.16); }
+    .card-action:hover { background:#7357e8; color:#fff; }
+    .is-editing { outline:3px solid #7357e8; outline-offset:3px; }
+    .resource-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 16px; color: white; margin-bottom: 21px; background: linear-gradient(135deg, #7357e8, #4e9df5); }
+    .resource-card h3, .review-card h3 { margin: 0 0 8px; font-size: 1.1rem; }
+    .resource-card p, .review-card p { margin: 0; color: #6d6788; line-height: 1.55; font-size: .91rem; }
+    .link-button { display: inline-flex; align-items: center; gap: 7px; margin-top: 21px; padding: 10px 13px; border-radius: 11px; text-decoration: none; font-weight: 700; font-size: .88rem; background: rgba(115, 87, 232, 0.1); color: #7357e8; }
+
+    .stars { display: flex; gap: 3px; color: #ffb548; margin: 12px 0 15px; }
+    .rating-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .meter { height: 9px; overflow: hidden; border-radius: 999px; background: rgba(91,72,168,.12); flex: 1; }
+    .meter span { display:block; height:100%; border-radius: inherit; background: linear-gradient(90deg, #7860e9, #ef71ba); }
+    .score { font-weight: 700; font-size: .82rem; color: #61588b; }
+    .reviewer { margin-top: 18px !important; font-weight: 700; color: #4e4774 !important; font-size: .82rem !important; }
+
+    .photo-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); grid-auto-rows: 168px; gap: 16px; }
+    .photo-card { position: relative; overflow: hidden; border: 4px solid rgba(255,255,255,.78); border-radius: 21px; box-shadow: 0 13px 29px rgba(62,48,116,.14); display: block; }
+    .photo-card.tall { grid-row: span 2; } .photo-card.wide { grid-column: span 2; }
+    .photo-card img { width:100%; height:100%; object-fit:cover; transition: transform .55s cubic-bezier(.2,.8,.2,1); }
+    .photo-card:hover img, .photo-card:focus img { transform: scale(1.1); }
+    .photo-caption { position:absolute; left:0; right:0; bottom:0; padding: 28px 15px 14px; color:white; background: linear-gradient(transparent, rgba(24,16,62,.86)); transform: translateY(30%); opacity: 0; transition: .3s ease; }
+    .photo-card:hover .photo-caption, .photo-card:focus .photo-caption { transform: translateY(0); opacity:1; }
+    .photo-caption strong, .photo-caption span { display:block; } .photo-caption strong { font-size:.88rem; } .photo-caption span { font-size:.74rem; opacity:.85; margin-top:3px; }
+
+    .modal-backdrop { position:fixed; inset:0; z-index:20; display:none; align-items:center; justify-content:center; padding:20px; background:rgba(35,27,76,.43); backdrop-filter:blur(7px); }
+    .modal-backdrop.is-open { display:flex; }
+    .modal { width:min(100%, 500px); padding:27px; border-radius:25px; background:#fff; box-shadow:0 25px 65px rgba(32,23,72,.3); position:relative; animation:rise .26s ease both; }
+    .modal h2 { margin:0 0 7px; font-family:"Fraunces",serif; font-size: 1.5rem; } .modal p { color:var(--muted); margin:0 0 20px; font-size: 0.9rem; }
+    .icon-close { position:absolute; right:16px; top:16px; width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:#f2effb; color:#514a76; }
+    .form-field { margin-top:14px; } .form-field label { display:block; margin-bottom:6px; font-size:.85rem; font-weight:700; color:#50486f; }
+    .form-field input, .form-field textarea { width:100%; border:1px solid #ddd7f3; background:#fbfaff; border-radius:12px; padding:11px 12px; font:inherit; color:var(--ink); outline:none; }
+    .form-field textarea { min-height:78px; resize:vertical; } .form-field input:focus, .form-field textarea:focus { border-color:#7357e8; box-shadow:0 0 0 3px rgba(115,87,232,.13); }
+    .form-message { min-height:20px; margin-top:10px !important; color:#b13775 !important; font-size:.84rem; }
+    .form-actions { margin-top:15px; display:flex; justify-content:flex-end; }
+
+    @keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+    @keyframes fade { from { opacity:0; } to { opacity:1; } }
+    @keyframes drift { 50% { transform:translate(16px, 18px) scale(1.05); } }
+
+    @media (max-width: 760px) {
+      .app-shell { padding:18px 14px 35px; } .topline { margin-bottom:18px; } .hero-card { grid-template-columns:1fr; border-radius:24px; padding:28px; } .hero-art { min-height:160px; }
+      .links-grid, .review-grid { grid-template-columns:1fr; } .photo-grid { grid-template-columns:repeat(2,1fr); grid-auto-rows:150px; } .photo-card.wide { grid-column:span 2; }
+      .section-heading { align-items:flex-start; flex-direction:column; } .tabs { width:100%; justify-content:space-between; } .tab-button { padding:10px 11px; font-size:.84rem; }
+    }
+  </style>
+ </head>
+ <body>
+  <div class="app-shell">
+   <div class="orb orb-one"></div>
+   <div class="orb orb-two"></div>
+   <div class="orb orb-three"></div>
+   <header class="content-width">
+    <div class="topline">
+     <div class="flex items-center gap-3">
+      <div class="brand-mark" aria-hidden="true">
+       <i data-lucide="sparkles" style="width:19px;height:19px"></i>
+      </div>
+      <span class="canva-text eyebrow">Memorias &amp; Recursos</span>
+     </div>
+     <span class="canva-tag px-3 py-1 bg-white/70 rounded-full font-medium text-xs text-purple-700 shadow-sm border border-purple-100">Espacio Colaborativo</span>
+    </div>
+    <section class="canva-banner hero-card">
+     <div>
+      <span class="canva-text eyebrow text-purple-600">Colección Digital</span>
+      <h1 class="canva-text hero-title text-slate-800">Centro de Recursos y Memorias</h1>
+      <p class="canva-text hero-subtitle">Un espacio centralizado para guardar enlaces útiles, notas de evaluación y recuerdos fotográficos en un solo lugar interactivo.</p>
+      <div class="hero-actions">
+       <button id="open-modal-button" class="canva-button primary-button" type="button" aria-controls="add-modal" aria-haspopup="dialog">
+        <i data-lucide="plus" style="width:18px;height:18px"></i> Añadir Recurso
+       </button>
+      </div>
+     </div>
+     <div class="hero-art" aria-hidden="true">
+      <i class="spark one" data-lucide="sparkle" style="width:26px;height:26px"></i>
+      <i class="spark two" data-lucide="heart" style="width:25px;height:25px"></i>
+      <div class="art-stack">
+       <div class="art-note"></div>
+       <div class="art-note"></div>
+       <div class="art-note"></div>
+      </div>
+     </div>
+    </section>
+   </header>
+   <main class="content-width">
+    <nav class="tabs-wrap" aria-label="Secciones del centro de recursos">
+     <div class="tabs" role="tablist">
+      <button id="tab-links" class="canva-tabs tab-button is-active" type="button" role="tab" aria-selected="true" aria-controls="links-panel" data-panel="links-panel">Enlaces y Recursos</button>
+      <button id="tab-reviews" class="canva-tabs tab-button" type="button" role="tab" aria-selected="false" aria-controls="reviews-panel" data-panel="reviews-panel">Evaluaciones y Notas</button>
+      <button id="tab-photos" class="canva-tabs tab-button" type="button" role="tab" aria-selected="false" aria-controls="photos-panel" data-panel="photos-panel">Galería de Fotos</button>
+     </div>
+    </nav>
+    
+    <!-- ENLACES Y RECURSOS PANEL -->
+    <section id="links-panel" class="panel is-active" role="tabpanel" aria-labelledby="tab-links">
+     <div class="section-heading">
+      <div>
+       <h2 class="canva-text text-2xl font-bold">Recursos Útiles</h2>
+       <p class="canva-text">Acceso rápido a las herramientas y plataformas principales del equipo.</p>
+      </div>
+     </div>
+     <div id="links-grid" class="links-grid">
+      <article class="canva-card resource-card">
+       <div class="card-actions">
+        <button class="card-action edit-action" type="button" aria-label="Editar recurso"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+        <button class="card-action delete-action" type="button" aria-label="Eliminar recurso"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+       </div>
+       <div class="canva-tag resource-icon"><i data-lucide="palette" style="width:23px;height:23px"></i></div>
+       <h3 class="canva-text">Canva Pro</h3>
+       <p class="canva-text">Plataforma central para la creación de diseños gráficos, presentaciones y contenido visual.</p>
+       <a class="canva-button link-button" href="https://www.canva.com" target="_blank" rel="noopener noreferrer">Visitar <i data-lucide="arrow-up-right" style="width:16px;height:16px"></i></a>
+      </article>
+      <article class="canva-card resource-card">
+       <div class="card-actions">
+        <button class="card-action edit-action" type="button" aria-label="Editar recurso"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+        <button class="card-action delete-action" type="button" aria-label="Eliminar recurso"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+       </div>
+       <div class="canva-tag resource-icon" style="background: linear-gradient(135deg, #4e9df5, #6752e8);"><i data-lucide="layout-template" style="width:23px;height:23px"></i></div>
+       <h3 class="canva-text">Notion Workspace</h3>
+       <p class="canva-text">Base de conocimiento principal, documentación de proyectos y tareas colaborativas.</p>
+       <a class="canva-button link-button" href="https://www.notion.so" target="_blank" rel="noopener noreferrer">Visitar <i data-lucide="arrow-up-right" style="width:16px;height:16px"></i></a>
+      </article>
+      <article class="canva-card resource-card">
+       <div class="card-actions">
+        <button class="card-action edit-action" type="button" aria-label="Editar recurso"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+        <button class="card-action delete-action" type="button" aria-label="Eliminar recurso"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+       </div>
+       <div class="canva-tag resource-icon" style="background: linear-gradient(135deg, #ed65b4, #7357e8);"><i data-lucide="cloud" style="width:23px;height:23px"></i></div>
+       <h3 class="canva-text">Google Drive</h3>
+       <p class="canva-text">Repositorio seguro para archivos, documentos compartilhados y respaldos del proyecto.</p>
+       <a class="canva-button link-button" href="https://drive.google.com" target="_blank" rel="noopener noreferrer">Visitar <i data-lucide="arrow-up-right" style="width:16px;height:16px"></i></a>
+      </article>
+     </div>
+    </section>
+
+    <!-- EVALUACIONES PANEL -->
+    <section id="reviews-panel" class="panel" role="tabpanel" aria-labelledby="tab-reviews">
+     <div class="section-heading">
+      <div>
+       <h2 class="canva-text text-2xl font-bold">Evaluaciones y Comentarios</h2>
+       <p class="canva-text">Retroalimentación destacada de los miembros y clientes sobre los entregables.</p>
+      </div>
+     </div>
+     <div class="review-grid">
+      <article class="canva-card review-card">
+       <div class="card-actions">
+        <button class="card-action edit-action" type="button" aria-label="Editar evaluación"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+        <button class="card-action delete-action" type="button" aria-label="Eliminar evaluación"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+       </div>
+       <h3 class="canva-text">Excelente Organización</h3>
+       <div class="stars" aria-label="5 de 5 estrellas"><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i></div>
+       <div class="rating-row">
+        <div class="meter"><span style="width:96%"></span></div>
+        <span class="canva-text score">9.6 / 10</span>
+       </div>
+       <p class="canva-text">La estructura del centro de recursos simplificó de manera increíble nuestro flujo de trabajo diario.</p>
+       <p class="canva-text reviewer">— Laura M., Líder de Diseño</p>
+      </article>
+      <article class="canva-card review-card">
+       <div class="card-actions">
+        <button class="card-action edit-action" type="button" aria-label="Editar evaluación"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+        <button class="card-action delete-action" type="button" aria-label="Eliminar evaluación"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+       </div>
+       <h3 class="canva-text">Diseño Intuitivo</h3>
+       <div class="stars" aria-label="4 de 5 estrellas"><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star"></i></div>
+       <div class="rating-row">
+        <div class="meter"><span style="width:88%"></span></div>
+        <span class="canva-text score">8.8 / 10</span>
+       </div>
+       <p class="canva-text">La navegación fluida y las tarjetas interactivas hacen que consultar información sea muy ágil.</p>
+       <p class="canva-text reviewer">— Carlos R., Desarrollo Web</p>
+      </article>
+      <article class="canva-card review-card">
+       <div class="card-actions">
+        <button class="card-action edit-action" type="button" aria-label="Editar evaluación"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+        <button class="card-action delete-action" type="button" aria-label="Eliminar evaluación"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+       </div>
+       <h3 class="canva-text">Impacto Positivo</h3>
+       <div class="stars" aria-label="5 de 5 estrellas"><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i></div>
+       <div class="rating-row">
+        <div class="meter"><span style="width:100%"></span></div>
+        <span class="canva-text score">10 / 10</span>
+       </div>
+       <p class="canva-text">Nos ayudó a centralizar archivos clave que antes estaban dispersos entre múltiples correos.</p>
+       <p class="canva-text reviewer">— Elena P., Gerente de Proyecto</p>
+      </article>
+     </div>
+    </section>
+
+    <!-- GALERÍA DE FOTOS PANEL -->
+    <section id="photos-panel" class="panel" role="tabpanel" aria-labelledby="tab-photos">
+     <div class="section-heading">
+      <div>
+       <h2 class="canva-text text-2xl font-bold">Galería de Recuerdos</h2>
+       <p class="canva-text">Momentos memorables y capturas destacadas de nuestros eventos y sesiones creativas.</p>
+      </div>
+     </div>
+     <div class="photo-grid">
+      <figure class="photo-card tall" tabindex="0">
+       <div class="card-actions">
+        <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+        <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+       </div>
+       <img class="canva-image" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Sesión de Colaboración" loading="lazy">
+       <figcaption class="photo-caption">
+        <strong class="canva-text">Sesión de Colaboración</strong>
+        <span class="canva-text">Mayo 2026</span>
+       </figcaption>
+      </figure>
+      <figure class="photo-card wide" tabindex="0">
+       <div class="card-actions">
+        <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+        <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+       </div>
+       <img class="canva-image" src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Taller Creativo" loading="lazy">
+       <figcaption class="photo-caption">
+        <strong class="canva-text">Taller Creativo Anual</strong>
+        <span class="canva-text">Junio 2026</span>
+       </figcaption>
+      </figure>
+      <figure class="photo-card" tabindex="0">
+       <div class="card-actions">
+        <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+        <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+       </div>
+       <img class="canva-image" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="Brainstorming" loading="lazy">
+       <figcaption class="photo-caption">
+        <strong class="canva-text">Lanzamiento de Estrategia</strong>
+        <span class="canva-text">Julio 2026</span>
+       </figcaption>
+      </figure>
+      <figure class="photo-card" tabindex="0">
+       <div class="card-actions">
+        <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+        <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+       </div>
+       <img class="canva-image" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="Celebración del Equipo" loading="lazy">
+       <figcaption class="photo-caption">
+        <strong class="canva-text">Celebración del Equipo</strong>
+        <span class="canva-text">Agosto 2026</span>
+       </figcaption>
+      </figure>
+      <figure class="photo-card" tabindex="0">
+       <div class="card-actions">
+        <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+        <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+       </div>
+       <img class="canva-image" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Espacio de Trabajo" loading="lazy">
+       <figcaption class="photo-caption">
+        <strong class="canva-text">Espacio de Trabajo</strong>
+        <span class="canva-text">Agosto 2026</span>
+       </figcaption>
+      </figure>
+      <figure class="photo-card" tabindex="0">
+       <div class="card-actions">
+        <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+        <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+       </div>
+       <img class="canva-image" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="Planificación" loading="lazy">
+       <figcaption class="photo-caption">
+        <strong class="canva-text">Reunión de Planificación</strong>
+        <span class="canva-text">Agosto 2026</span>
+       </figcaption>
+      </figure>
+     </div>
+    </section>
+   </main>
+  </div>
+
+  <!-- MODAL PARA AÑADIR / EDITAR -->
+  <div id="add-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+   <form id="resource-form" class="modal">
+    <button id="close-modal-button" class="canva-button icon-close" type="button" aria-label="Cerrar"><i data-lucide="x" style="width:18px;height:18px"></i></button>
+    <h2 id="modal-title" class="canva-text">Gestión de Recurso</h2>
+    <p class="canva-text">Ingresa los detalles para agregar o actualizar la información en la colección.</p>
+    <div class="form-field">
+     <label class="canva-text" for="resource-name">Nombre o Título</label>
+     <input id="resource-name" type="text" placeholder="Ej. Guía de Marcas" required>
+    </div>
+    <div class="form-field">
+     <label class="canva-text" for="resource-url">Enlace (URL)</label>
+     <input id="resource-url" type="url" placeholder="https://ejemplo.com">
+    </div>
+    <div class="form-field">
+     <label class="canva-text" for="resource-note">Notas / Descripción</label>
+     <textarea id="resource-note" placeholder="Breve descripción o anotación del recurso..."></textarea>
+    </div>
+    <p id="form-message" class="form-message" aria-live="polite"></p>
+    <div class="form-actions">
+     <button class="canva-button primary-button" type="submit">Guardar Cambios</button>
+    </div>
+   </form>
+  </div>
+
+  <!-- PLANTILLA PARA NUEVO RECURSO -->
+  <template id="custom-resource-template">
+   <article class="canva-card resource-card">
+    <div class="card-actions">
+     <button class="card-action edit-action" type="button" aria-label="Editar recurso"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+     <button class="card-action delete-action" type="button" aria-label="Eliminar recurso"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+    </div>
+    <div class="canva-tag resource-icon" style="background: linear-gradient(135deg, #a568e9, #7357e8);"><i data-lucide="link" style="width:23px;height:23px"></i></div>
+    <h3 class="custom-title"></h3>
+    <p class="custom-description"></p>
+    <a class="canva-button link-button custom-url" target="_blank" rel="noopener noreferrer">Visitar <i data-lucide="arrow-up-right" style="width:16px;height:16px"></i></a>
+   </article>
+  </template>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+
+      // Manejo de pestañas
+      const tabs = document.querySelectorAll(".tab-button");
+      const panels = document.querySelectorAll(".panel");
+      const activateTab = (tab) => {
+        tabs.forEach(item => {
+          item.classList.toggle("is-active", item === tab);
+          item.setAttribute("aria-selected", String(item === tab));
+        });
+        panels.forEach(panel => panel.classList.toggle("is-active", panel.id === tab.dataset.panel));
+      };
+
+      tabs.forEach(tab => tab.addEventListener("click", () => activateTab(tab)));
+
+      // Delegación de acciones de tarjetas (Editar y Eliminar)
+      let editingCard = null;
+
+      document.addEventListener("click", (event) => {
+        const action = event.target.closest(".card-action");
+        if (!action) return;
+        const card = action.closest("article, figure");
+        if (!card) return;
+
+        if (action.classList.contains("delete-action")) {
+          card.remove();
+        } else if (action.classList.contains("edit-action")) {
+          document.querySelectorAll(".is-editing").forEach(c => c.classList.remove("is-editing"));
+          card.classList.add("is-editing");
+          openModal(card);
+        }
+      });
+
+      const modal = document.getElementById("add-modal");
+      const titleInput = document.getElementById("resource-name");
+      const urlInput = document.getElementById("resource-url");
+      const noteInput = document.getElementById("resource-note");
+      const formMessage = document.getElementById("form-message");
+
+      const openModal = (card = null) => {
+        editingCard = card;
+        if (card) {
+          const titleEl = card.querySelector(".custom-title, h3, .photo-caption strong");
+          const urlEl = card.querySelector(".custom-url, a");
+          const noteEl = card.querySelector(".custom-description, p:not(.reviewer), .photo-caption span");
+
+          titleInput.value = titleEl ? titleEl.textContent.trim() : "";
+          urlInput.value = urlEl ? (urlEl.getAttribute("href") || "") : "";
+          noteInput.value = noteEl ? noteEl.textContent.trim() : "";
+        } else {
+          document.getElementById("resource-form").reset();
+        }
+        formMessage.textContent = "";
+        modal.classList.add("is-open");
+        titleInput.focus();
+      };
+
+      const closeModal = () => {
+        modal.classList.remove("is-open");
+        document.getElementById("resource-form").reset();
+        formMessage.textContent = "";
+        if (editingCard) {
+          editingCard.classList.remove("is-editing");
+          editingCard = null;
+        }
+      };
+
+      document.getElementById("open-modal-button").addEventListener("click", () => openModal(null));
+      document.getElementById("close-modal-button").addEventListener("click", closeModal);
+      modal.addEventListener("click", (event) => { if (event.target === modal) closeModal(); });
+      document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeModal(); });
+
+      // Envío del formulario
+      document.getElementById("resource-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const title = titleInput.value.trim();
+        const url = urlInput.value.trim();
+        const note = noteInput.value.trim();
+
+        if (!title) {
+          formMessage.textContent = "Por favor, ingresa un título o nombre.";
+          return;
+        }
+
+        if (editingCard) {
+          const titleEl = editingCard.querySelector(".custom-title, h3, .photo-caption strong");
+          const urlEl = editingCard.querySelector(".custom-url, a");
+          const noteEl = editingCard.querySelector(".custom-description, p:not(.reviewer), .photo-caption span");
+
+          if (titleEl) titleEl.textContent = title;
+          if (urlEl && url) urlEl.setAttribute("href", url);
+          if (noteEl) noteEl.textContent = note;
+
+          closeModal();
+        } else {
+          const template = document.getElementById("custom-resource-template");
+          if (!template) return;
+
+          const clone = template.content.cloneNode(true);
+          const newCard = clone.querySelector("article");
+          
+          newCard.querySelector(".custom-title").textContent = title;
+          newCard.querySelector(".custom-description").textContent = note || "Sin descripción.";
+          
+          const linkBtn = newCard.querySelector(".custom-url");
+          if (url) {
+            linkBtn.setAttribute("href", url);
+          } else {
+            linkBtn.setAttribute("href", "#");
+          }
+
+          document.getElementById("links-grid").appendChild(clone);
+          
+          if (window.lucide) {
+            lucide.createIcons();
+          }
+          closeModal();
+        }
+      });
+    });
+  </script>
+ </body>
+</html>
