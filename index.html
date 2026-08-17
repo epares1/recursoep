@@ -7,15 +7,17 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --ink: #27224a;
-      --muted: #726c95;
-      --violet: #7357e8;
-      --pink: #ed65b4;
-      --blue: #4e9df5;
-      --surface: rgba(255,255,255,.78);
-      --line: rgba(111, 85, 207, .13);
+      --ink: #1b1f27;
+      --muted: #5c6772;
+      --primary: #2e5266;
+      --primary-dark: #16303d;
+      --accent: #bb5a2e;
+      --steel: #4a7a94;
+      --surface: rgba(255,255,255,.82);
+      --line: rgba(46, 82, 102, .16);
     }
 
     * { box-sizing: border-box; }
@@ -25,7 +27,7 @@
       color: var(--ink);
       font-family: "DM Sans", sans-serif;
       overflow-x: hidden;
-      background-color: #f7f5fd;
+      background-color: #eef1f3;
     }
 
     .app-shell {
@@ -41,31 +43,31 @@
       border-radius: 999px;
       filter: blur(8px);
       pointer-events: none;
-      opacity: .72;
+      opacity: .55;
       animation: drift 10s ease-in-out infinite;
     }
-    .orb-one { width: 260px; height: 260px; background: #dfbcff; top: -90px; left: -75px; }
-    .orb-two { width: 310px; height: 310px; background: #aee5ff; right: -100px; top: 110px; animation-delay: -3s; }
-    .orb-three { width: 220px; height: 220px; background: #ffc3e6; bottom: -110px; left: 25%; animation-delay: -6s; }
+    .orb-one { width: 260px; height: 260px; background: #9db6c2; top: -90px; left: -75px; }
+    .orb-two { width: 310px; height: 310px; background: #7c95a3; right: -100px; top: 110px; animation-delay: -3s; }
+    .orb-three { width: 220px; height: 220px; background: #c98a5e; bottom: -110px; left: 25%; animation-delay: -6s; }
 
     .content-width { max-width: 1180px; margin: 0 auto; position: relative; z-index: 1; }
     .topline {
       display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 26px; font-size: .82rem; color: #635c87;
+      margin-bottom: 26px; font-size: .82rem; color: #4d5760;
     }
     .brand-mark {
       width: 38px; height: 38px; display: grid; place-items: center;
-      border-radius: 13px; color: white; background: linear-gradient(135deg, #6752e8, #e65eba);
-      box-shadow: 0 10px 22px rgba(104, 80, 219, .25);
+      border-radius: 13px; color: white; background: linear-gradient(135deg, var(--primary-dark), var(--accent));
+      box-shadow: 0 10px 22px rgba(22, 48, 61, .3);
     }
     .eyebrow { letter-spacing: .13em; text-transform: uppercase; font-weight: 700; font-size: .7rem; }
 
     .hero-card {
       border-radius: 30px;
       padding: clamp(28px, 5vw, 58px);
-      background: linear-gradient(120deg, rgba(255,255,255,.92), rgba(248,243,255,.76));
+      background: linear-gradient(120deg, rgba(255,255,255,.94), rgba(236,241,244,.8));
       border: 1px solid rgba(255,255,255,.86);
-      box-shadow: 0 24px 70px rgba(76, 65, 139, .14);
+      box-shadow: 0 24px 70px rgba(27, 42, 51, .16);
       display: grid; grid-template-columns: 1.3fr .7fr; gap: 30px; align-items: center;
       animation: rise .65s ease both;
     }
@@ -83,29 +85,29 @@
     }
     .primary-button {
       display: inline-flex; align-items: center; justify-content: center; gap: 9px;
-      padding: 14px 19px; border-radius: 15px; background: linear-gradient(135deg, #7357e8, #ed65b4); color: white;
-      font-weight: 600; box-shadow: 0 14px 24px rgba(113, 79, 223, .25);
+      padding: 14px 19px; border-radius: 15px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white;
+      font-weight: 600; box-shadow: 0 14px 24px rgba(27, 46, 56, .28);
     }
-    .primary-button:hover, .link-button:hover { transform: translateY(-3px); box-shadow: 0 16px 25px rgba(82, 66, 156, .24); }
+    .primary-button:hover, .link-button:hover { transform: translateY(-3px); box-shadow: 0 16px 25px rgba(24, 41, 50, .26); }
 
     .hero-art {
       min-height: 190px; border-radius: 24px; position: relative; overflow: hidden;
-      background: linear-gradient(135deg, #6c52df, #a573ed 52%, #f58dc9);
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary) 52%, var(--accent));
     }
-    .hero-art::before, .hero-art::after { content: ""; position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,.36); }
+    .hero-art::before, .hero-art::after { content: ""; position: absolute; border-radius: 50%; border: 1px solid rgba(255,255,255,.3); }
     .hero-art::before { width: 210px; height: 210px; right: -42px; top: -60px; }
     .hero-art::after { width: 145px; height: 145px; left: -37px; bottom: -54px; }
-    .spark { position: absolute; color: white; opacity: .9; }
+    .spark { position: absolute; color: white; opacity: .85; }
     .spark.one { top: 29px; left: 37px; } .spark.two { right: 38px; bottom: 31px; }
 
     .tabs-wrap { display: flex; justify-content: center; margin: 32px 0 24px; }
     .tabs {
       display: inline-flex; gap: 5px; padding: 6px; border-radius: 17px;
-      background: rgba(255,255,255,.69); border: 1px solid rgba(255,255,255,.8);
-      box-shadow: 0 10px 30px rgba(76,65,135,.08);
+      background: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.8);
+      box-shadow: 0 10px 30px rgba(27,42,51,.1);
     }
-    .tab-button { padding: 10px 17px; border-radius: 12px; color: #625b87; font-weight: 700; background: transparent; }
-    .tab-button.is-active { color: white; background: linear-gradient(120deg, #6851df, #a568e9); box-shadow: 0 7px 14px rgba(99,74,190,.24); }
+    .tab-button { padding: 10px 17px; border-radius: 12px; color: #4d5760; font-weight: 700; background: transparent; }
+    .tab-button.is-active { color: white; background: linear-gradient(120deg, var(--primary-dark), var(--primary)); box-shadow: 0 7px 14px rgba(22,48,61,.28); }
 
     .panel { display: none; animation: fade .35s ease both; }
     .panel.is-active { display: block; }
@@ -116,58 +118,61 @@
     .links-grid, .review-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
     .resource-card, .review-card {
       border: 1px solid rgba(255,255,255,.85); border-radius: 23px; padding: 22px; position: relative;
-      background: white; box-shadow: 0 14px 35px rgba(65,51,123,.1); transition: transform .25s ease, box-shadow .25s ease;
+      background: white; box-shadow: 0 14px 35px rgba(22,38,47,.12); transition: transform .25s ease, box-shadow .25s ease;
     }
-    .resource-card:hover, .review-card:hover { transform: translateY(-6px); box-shadow: 0 20px 42px rgba(65,51,123,.16); }
+    .resource-card:hover, .review-card:hover { transform: translateY(-6px); box-shadow: 0 20px 42px rgba(22,38,47,.18); }
     .card-actions { position:absolute; top:12px; right:12px; display:flex; gap:5px; z-index:2; opacity:0; transition:opacity .2s ease; }
     .resource-card:hover .card-actions, .review-card:hover .card-actions, .photo-card:hover .card-actions { opacity:1; }
-    .card-action { width:30px; height:30px; display:grid; place-items:center; border:0; border-radius:9px; background:rgba(255,255,255,.9); color:#5b4a9b; cursor:pointer; box-shadow:0 4px 10px rgba(48,35,104,.16); }
-    .card-action:hover { background:#7357e8; color:#fff; }
-    
-    .resource-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 16px; color: white; background: var(--violet); margin-bottom: 21px; }
+    .card-action { width:30px; height:30px; display:grid; place-items:center; border:0; border-radius:9px; background:rgba(255,255,255,.9); color:var(--primary-dark); cursor:pointer; box-shadow:0 4px 10px rgba(22,38,47,.18); }
+    .card-action:hover { background: var(--primary); color:#fff; }
+
+    .resource-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 16px; color: white; background: var(--primary); margin-bottom: 21px; }
     .resource-card h3, .review-card h3 { margin: 0 0 8px; font-size: 1.1rem; }
-    .resource-card p, .review-card p { margin: 0; color: #6d6788; line-height: 1.55; font-size: .91rem; }
-    .link-button { display: inline-flex; align-items: center; gap: 7px; margin-top: 21px; padding: 10px 13px; border-radius: 11px; background: #f0ecfc; color: #7357e8; text-decoration: none; font-weight: 700; font-size: .88rem; }
+    .resource-card p, .review-card p { margin: 0; color: #565f68; line-height: 1.55; font-size: .91rem; }
+    .link-button { display: inline-flex; align-items: center; gap: 7px; margin-top: 21px; padding: 10px 13px; border-radius: 11px; background: #e7edf0; color: var(--primary-dark); text-decoration: none; font-weight: 700; font-size: .88rem; }
 
     .rating-row { display: flex; align-items: center; gap: 10px; margin: 10px 0 16px; }
-    .score { font-weight: 700; font-size: .88rem; color: #7357e8; background: #f0ecfc; padding: 3px 8px; border-radius: 6px; }
-    .reviewer { margin-top: 18px !important; font-weight: 700; color: #4e4774 !important; font-size: .82rem !important; }
+    .score { font-weight: 700; font-size: .88rem; color: var(--accent); background: #f4e7de; padding: 3px 8px; border-radius: 6px; }
+    .reviewer { margin-top: 18px !important; font-weight: 700; color: var(--primary-dark) !important; font-size: .82rem !important; }
 
     .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); grid-auto-rows: 200px; gap: 16px; }
-    .photo-card { position: relative; overflow: hidden; border: 4px solid rgba(255,255,255,.78); border-radius: 21px; box-shadow: 0 13px 29px rgba(62,48,116,.14); display: block; background: #fff; }
-    .photo-card.tall { grid-row: span 2; } 
+    .photo-card { position: relative; overflow: hidden; border: 4px solid rgba(255,255,255,.78); border-radius: 21px; box-shadow: 0 13px 29px rgba(22,38,47,.16); display: block; background: #fff; }
+    .photo-card.tall { grid-row: span 2; }
     .photo-card.wide { grid-column: span 2; }
     .photo-card img { width:100%; height:100%; object-fit:cover; transition: transform .55s cubic-bezier(.2,.8,.2,1); }
     .photo-card:hover img { transform: scale(1.1); }
-    .photo-caption { position:absolute; left:0; right:0; bottom:0; padding: 28px 15px 14px; color:white; background: linear-gradient(transparent, rgba(24,16,62,.86)); transform: translateY(30%); opacity: 0; transition: .3s ease; }
+    .photo-caption { position:absolute; left:0; right:0; bottom:0; padding: 28px 15px 14px; color:white; background: linear-gradient(transparent, rgba(15,23,29,.88)); transform: translateY(30%); opacity: 0; transition: .3s ease; }
     .photo-card:hover .photo-caption { transform: translateY(0); opacity:1; }
     .photo-caption strong, .photo-caption span { display:block; } .photo-caption strong { font-size:.88rem; } .photo-caption span { font-size:.74rem; opacity:.85; margin-top:3px; }
 
-    .modal-backdrop { position:fixed; inset:0; z-index:20; display:none; align-items:center; justify-content:center; padding:20px; background:rgba(35,27,76,.43); backdrop-filter:blur(7px); }
+    .modal-backdrop { position:fixed; inset:0; z-index:20; display:none; align-items:center; justify-content:center; padding:20px; background:rgba(15,23,29,.5); backdrop-filter:blur(7px); }
     .modal-backdrop.is-open { display:flex; }
-    .modal { width:min(100%, 500px); padding:27px; border-radius:25px; background:#fff; box-shadow:0 25px 65px rgba(32,23,72,.3); position:relative; animation:rise .26s ease both; }
-    .modal h2 { margin:0 0 7px; font-family:"Fraunces",serif; font-size: 1.5rem; } 
+    .modal { width:min(100%, 500px); padding:27px; border-radius:25px; background:#fff; box-shadow:0 25px 65px rgba(15,23,29,.32); position:relative; animation:rise .26s ease both; }
+    .modal h2 { margin:0 0 7px; font-family:"Fraunces",serif; font-size: 1.5rem; }
     .modal p { color:var(--muted); margin:0 0 20px; font-size: .9rem; }
-    .icon-close { position:absolute; right:16px; top:16px; width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:#f2effb; color:#514a76; }
-    .form-field { margin-top:14px; } .form-field label { display:block; margin-bottom:6px; font-size:.85rem; font-weight:700; color:#50486f; }
-    .form-field input, .form-field textarea, .form-field select { width:100%; border:1px solid #ddd7f3; background:#fbfaff; border-radius:12px; padding:11px 12px; font:inherit; color:var(--ink); outline:none; }
-    .form-field textarea { min-height:78px; resize:vertical; } .form-field input:focus, .form-field textarea:focus, .form-field select:focus { border-color:#7357e8; box-shadow:0 0 0 3px rgba(115,87,232,.13); }
-    .form-message { min-height:20px; margin-top:10px !important; color:#b13775 !important; font-size:.84rem; }
+    .icon-close { position:absolute; right:16px; top:16px; width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:#eef1f3; color:var(--primary-dark); }
+    .form-field { margin-top:14px; } .form-field label { display:block; margin-bottom:6px; font-size:.85rem; font-weight:700; color:#404952; }
+    .form-field input, .form-field textarea, .form-field select { width:100%; border:1px solid #d7dde1; background:#fafbfc; border-radius:12px; padding:11px 12px; font:inherit; color:var(--ink); outline:none; }
+    .form-field textarea { min-height:78px; resize:vertical; } .form-field input:focus, .form-field textarea:focus, .form-field select:focus { border-color: var(--primary); box-shadow:0 0 0 3px rgba(46,82,102,.14); }
+    .form-message { min-height:20px; margin-top:10px !important; color: var(--accent) !important; font-size:.84rem; }
     .form-actions { margin-top:15px; display:flex; justify-content:flex-end; }
+    .sync-badge { display:inline-flex; align-items:center; gap:6px; font-size:.72rem; font-weight:700; padding:4px 9px; border-radius:8px; }
+    .sync-badge.online { background:#e2ede8; color:#276b4f; }
+    .sync-badge.offline { background:#f4e2de; color:#a13f2b; }
 
     @keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
     @keyframes fade { from { opacity:0; } to { opacity:1; } }
     @keyframes drift { 50% { transform:translate(16px, 18px) scale(1.05); } }
 
     @media (max-width: 760px) {
-      .app-shell { padding:18px 14px 35px; } 
-      .hero-card { grid-template-columns:1fr; border-radius:24px; padding:28px; } 
+      .app-shell { padding:18px 14px 35px; }
+      .hero-card { grid-template-columns:1fr; border-radius:24px; padding:28px; }
       .hero-art { min-height:160px; }
-      .links-grid, .review-grid { grid-template-columns:1fr; } 
-      .photo-grid { grid-template-columns:repeat(2,1fr); grid-auto-rows:150px; } 
+      .links-grid, .review-grid { grid-template-columns:1fr; }
+      .photo-grid { grid-template-columns:repeat(2,1fr); grid-auto-rows:150px; }
       .photo-card.wide { grid-column:span 2; }
-      .section-heading { align-items:flex-start; flex-direction:column; } 
-      .tabs { width:100%; justify-content:space-between; } 
+      .section-heading { align-items:flex-start; flex-direction:column; }
+      .tabs { width:100%; justify-content:space-between; }
       .tab-button { padding:10px 11px; font-size:.84rem; }
     }
   </style>
@@ -177,16 +182,16 @@
     <div class="orb orb-one"></div>
     <div class="orb orb-two"></div>
     <div class="orb orb-three"></div>
-    
+
     <header class="content-width">
       <div class="topline">
         <div class="flex items-center gap-3">
           <div class="brand-mark"><i data-lucide="sparkles" style="width:19px;height:19px"></i></div>
           <span class="eyebrow">Entre Pares</span>
         </div>
-        <span>Activo</span>
+        <span id="sync-status" class="sync-badge offline">● Local</span>
       </div>
-      
+
       <section class="hero-card">
         <div>
           <span class="eyebrow">Plataforma Colaborativa</span>
@@ -291,7 +296,7 @@
       </div>
 
       <p id="form-message" class="form-message"></p>
-      
+
       <div class="form-actions">
         <button class="primary-button" type="submit">Guardar Elemento</button>
       </div>
@@ -302,30 +307,103 @@
     document.addEventListener("DOMContentLoaded", () => {
       const ADMIN_PASSWORD = "Liby2026";
 
+      // ──────────────────────────────────────────────────────────────
+      // CONFIGURACIÓN DE GITHUB
+      // Los datos se guardan como un archivo JSON dentro de TU PROPIO
+      // repositorio (nada de servicios externos). Cada vez que alguien
+      // añade/edita/borra algo, se crea un commit en ese archivo.
+      //
+      // Necesitas un Personal Access Token (fine-grained) con permiso
+      // "Contents: Read and write" LIMITADO a este repositorio.
+      // Instrucciones completas al final del mensaje del chat.
+      //
+      // Mientras "token" siga en "TU_TOKEN_DE_ACCESO", el sitio usará
+      // almacenamiento local (no se sincroniza entre dispositivos).
+      // ──────────────────────────────────────────────────────────────
+      const githubConfig = {
+        owner: "TU_USUARIO",          // tu usuario u organización de GitHub
+        repo: "TU_REPOSITORIO",       // el nombre del repositorio del sitio
+        branch: "main",               // la rama donde vive el sitio
+        path: "data/site-data.json",  // ruta del archivo de datos dentro del repo
+        token: "TU_TOKEN_DE_ACCESO"   // fine-grained PAT, solo Contents: Read/Write, solo este repo
+      };
+
       const defaultData = {
         links: [{ id: 'link-1', title: 'Canva Design', desc: 'Plataforma de diseño gráfico para presentaciones y documentos visuales.', url: 'https://www.canva.com' }],
         reviews: [{ id: 'rev-1', title: 'Notion Workspace', score: '9.5/10', desc: 'Excelente plataforma para organizar proyectos en equipo y documentar notas.', author: 'María G.' }],
         photos: [{ id: 'photo-1', title: 'Reunión de Equipo', desc: 'Trabajo colaborativo', url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80', cardClass: 'wide' }]
       };
 
-      function loadData(key) {
-        const stored = localStorage.getItem('recursoep_' + key);
-        if (!stored) {
-          localStorage.setItem('recursoep_' + key, JSON.stringify(defaultData[key]));
-          return defaultData[key];
+      let state = { links: [], reviews: [], photos: [] };
+      let currentSha = null;
+      let useGithub = false;
+      let isSaving = false;
+
+      const useGithubConfigured = githubConfig.token && githubConfig.token !== "TU_TOKEN_DE_ACCESO"
+        && githubConfig.owner !== "TU_USUARIO" && githubConfig.repo !== "TU_REPOSITORIO";
+
+      const syncBadge = document.getElementById("sync-status");
+      function setSyncStatus(online) {
+        syncBadge.classList.toggle("online", online);
+        syncBadge.classList.toggle("offline", !online);
+        syncBadge.textContent = online ? "● Sincronizado con GitHub" : "● Solo en este dispositivo";
+      }
+
+      function b64EncodeUnicode(str) {
+        return btoa(unescape(encodeURIComponent(str)));
+      }
+      function b64DecodeUnicode(str) {
+        return decodeURIComponent(escape(atob(str)));
+      }
+
+      function githubApiUrl() {
+        return `https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`;
+      }
+
+      async function githubGetFile() {
+        const res = await fetch(`${githubApiUrl()}?ref=${githubConfig.branch}&t=${Date.now()}`, {
+          headers: {
+            Authorization: `token ${githubConfig.token}`,
+            Accept: "application/vnd.github+json"
+          }
+        });
+        if (res.status === 404) return null;
+        if (!res.ok) throw new Error(`GitHub respondió ${res.status} al leer el archivo`);
+        const json = await res.json();
+        const content = b64DecodeUnicode(json.content.replace(/\n/g, ""));
+        return { sha: json.sha, data: JSON.parse(content) };
+      }
+
+      async function githubSaveFile(dataObj, message) {
+        const body = {
+          message: message || "Actualizar datos del sitio",
+          content: b64EncodeUnicode(JSON.stringify(dataObj, null, 2)),
+          branch: githubConfig.branch
+        };
+        if (currentSha) body.sha = currentSha;
+
+        const res = await fetch(githubApiUrl(), {
+          method: "PUT",
+          headers: {
+            Authorization: `token ${githubConfig.token}`,
+            Accept: "application/vnd.github+json"
+          },
+          body: JSON.stringify(body)
+        });
+
+        if (res.status === 409 || res.status === 422) {
+          // Alguien más guardó primero: recarga lo más reciente e informa.
+          const fresh = await githubGetFile();
+          if (fresh) { state = fresh.data; currentSha = fresh.sha; renderAll(); }
+          throw new Error("Otra persona guardó cambios justo antes que tú. Se actualizó la vista con lo más reciente — inténtalo de nuevo.");
         }
-        return JSON.parse(stored);
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.message || `GitHub respondió ${res.status} al guardar`);
+        }
+        const json = await res.json();
+        currentSha = json.content.sha;
       }
-
-      function saveData(key, data) {
-        localStorage.setItem('recursoep_' + key, JSON.stringify(data));
-      }
-
-      let state = {
-        links: loadData('links'),
-        reviews: loadData('reviews'),
-        photos: loadData('photos')
-      };
 
       function escapeHtml(str) {
         return (str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -405,7 +483,72 @@
         lucide.createIcons();
       }
 
-      renderAll();
+      // ── Persistencia ────────────────────────────────────────────
+      // Con GitHub configurado: todos los dispositivos leen/escriben
+      // el MISMO archivo JSON dentro de tu repositorio, así que los
+      // cambios se ven en todas partes (con un pequeño commit por cambio).
+      // Sin configurar: se usa localStorage, que es solo del navegador
+      // actual (por eso antes no se veían los cambios en otro dispositivo).
+      async function persistState() {
+        if (useGithub) {
+          isSaving = true;
+          try {
+            await githubSaveFile(state);
+          } finally {
+            isSaving = false;
+          }
+        } else {
+          localStorage.setItem('recursoep_links', JSON.stringify(state.links));
+          localStorage.setItem('recursoep_reviews', JSON.stringify(state.reviews));
+          localStorage.setItem('recursoep_photos', JSON.stringify(state.photos));
+        }
+      }
+
+      function initLocalFallback() {
+        ['links', 'reviews', 'photos'].forEach(key => {
+          const stored = localStorage.getItem('recursoep_' + key);
+          if (stored) {
+            state[key] = JSON.parse(stored);
+          } else {
+            state[key] = defaultData[key];
+            localStorage.setItem('recursoep_' + key, JSON.stringify(defaultData[key]));
+          }
+        });
+        setSyncStatus(false);
+        renderAll();
+      }
+
+      async function loadFromGithub({ silent } = {}) {
+        try {
+          const result = await githubGetFile();
+          if (result) {
+            state = result.data;
+            currentSha = result.sha;
+          } else {
+            // El archivo aún no existe en el repo: lo creamos con los datos por defecto.
+            state = JSON.parse(JSON.stringify(defaultData));
+            currentSha = null;
+            await githubSaveFile(state, "Crear archivo de datos inicial");
+          }
+          useGithub = true;
+          setSyncStatus(true);
+          renderAll();
+        } catch (e) {
+          console.error("Error de sincronización con GitHub, usando modo local:", e);
+          useGithub = false;
+          if (!silent) alert("⚠️ No se pudo conectar con GitHub, usando almacenamiento local en este dispositivo.\n\n" + e.message);
+          initLocalFallback();
+        }
+      }
+
+      if (useGithubConfigured) {
+        loadFromGithub();
+        // Revisa cada 20s si alguien más guardó cambios (GitHub no tiene tiempo real).
+        setInterval(() => { if (!isSaving) loadFromGithub({ silent: true }); }, 20000);
+        window.addEventListener("focus", () => { if (!isSaving) loadFromGithub({ silent: true }); });
+      } else {
+        initLocalFallback();
+      }
 
       const checkPassword = () => {
         const inputPass = prompt("🔒 Se requiere contraseña para modificar Enlaces o Fotos:");
@@ -500,7 +643,7 @@
       document.getElementById("close-modal-button").addEventListener("click", closeModal);
       modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
 
-      document.addEventListener("click", (e) => {
+      document.addEventListener("click", async (e) => {
         const action = e.target.closest(".card-action");
         if (!action) return;
         const card = action.closest("[data-id]");
@@ -514,16 +657,23 @@
             if (!checkPassword()) return;
           }
           if (confirm("¿Seguro que deseas eliminar este elemento?")) {
-            state[type + 's'] = state[type + 's'].filter(x => x.id !== id);
-            saveData(type + 's', state[type + 's']);
+            const backup = state[type + 's'];
+            state[type + 's'] = backup.filter(x => x.id !== id);
             renderAll();
+            try {
+              await persistState();
+            } catch (err) {
+              alert("⚠️ No se pudo guardar el borrado en GitHub:\n" + err.message);
+              state[type + 's'] = backup;
+              renderAll();
+            }
           }
         } else if (action.classList.contains("edit-action")) {
           openModal(type, id);
         }
       });
 
-      document.getElementById("resource-form").addEventListener("submit", (e) => {
+      document.getElementById("resource-form").addEventListener("submit", async (e) => {
         e.preventDefault();
         const type = itemTypeSelect.value;
 
@@ -538,6 +688,7 @@
         const author = document.getElementById("input-author").value.trim();
 
         const listKey = type + 's';
+        const previousList = JSON.parse(JSON.stringify(state[listKey]));
 
         if (editingItem) {
           const item = state[listKey].find(x => x.id === editingItem.id);
@@ -563,16 +714,32 @@
           state[listKey].push(newItem);
         }
 
-        saveData(listKey, state[listKey]);
-        renderAll();
+        const submitButton = e.target.querySelector('button[type="submit"]');
+        const formMessage = document.getElementById("form-message");
+        submitButton.disabled = true;
+        formMessage.style.color = "var(--muted)";
+        formMessage.textContent = useGithub ? "Guardando en GitHub..." : "Guardando...";
 
-        if (type === "link") activateTab(document.getElementById("tab-links"));
-        else if (type === "review") activateTab(document.getElementById("tab-reviews"));
-        else if (type === "photo") activateTab(document.getElementById("tab-photos"));
+        try {
+          await persistState();
+          renderAll();
 
-        closeModal();
+          if (type === "link") activateTab(document.getElementById("tab-links"));
+          else if (type === "review") activateTab(document.getElementById("tab-reviews"));
+          else if (type === "photo") activateTab(document.getElementById("tab-photos"));
+
+          closeModal();
+        } catch (err) {
+          state[listKey] = previousList;
+          renderAll();
+          formMessage.style.color = "var(--accent)";
+          formMessage.textContent = "⚠️ No se pudo guardar: " + err.message;
+        } finally {
+          submitButton.disabled = false;
+        }
       });
     });
   </script>
 </body>
 </html>
+
