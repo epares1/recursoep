@@ -204,7 +204,7 @@
       <p class="canva-text hero-subtitle">Un espacio centralizado para guardar enlaces útiles, notas de evaluación y recuerdos fotográficos en un solo lugar interactivo.</p>
       <div class="hero-actions">
        <button id="open-modal-button" class="canva-button primary-button" type="button" aria-controls="add-modal" aria-haspopup="dialog">
-        <i data-lucide="plus" style="width:18px;height:18px"></i> Añadir Recurso
+        <i data-lucide="plus" style="width:18px;height:18px"></i> <span id="add-btn-text">Añadir Recurso</span>
        </button>
       </div>
      </div>
@@ -408,25 +408,114 @@
   <div id="add-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
    <form id="resource-form" class="modal">
     <button id="close-modal-button" class="canva-button icon-close" type="button" aria-label="Cerrar"><i data-lucide="x" style="width:18px;height:18px"></i></button>
-    <h2 id="modal-title" class="canva-text">Gestión de Recurso</h2>
+    <h2 id="modal-title" class="canva-text">Gestión de Elemento</h2>
     <p class="canva-text">Ingresa los detalles para agregar o actualizar la información en la colección.</p>
+    
     <div class="form-field">
-     <label class="canva-text" for="resource-name">Nombre o Título</label>
-     <input id="resource-name" type="text" placeholder="Ej. Guía de Marcas" required>
+     <label class="canva-text" for="item-type">Categoría / Tipo de Elemento</label>
+     <select id="item-type" style="width:100%; border:1px solid #ddd7f3; background:#fbfaff; border-radius:12px; padding:11px 12px; font:inherit; color:var(--ink); outline:none;">
+      <option value="link">🔗 Enlace / Recurso Útil (🔒 Requiere Contraseña)</option>
+      <option value="review">⭐ Evaluación / Nota (Público)</option>
+      <option value="photo">🖼️ Foto para la Galería (🔒 Requiere Contraseña)</option>
+     </select>
     </div>
-    <div class="form-field">
-     <label class="canva-text" for="resource-url">Enlace (URL)</label>
-     <input id="resource-url" type="url" placeholder="https://ejemplo.com">
+
+    <!-- CAMPOS PARA ENLACE -->
+    <div id="fields-link" class="type-fields">
+     <div class="form-field">
+      <label class="canva-text" for="resource-name">Nombre o Título del Recurso</label>
+      <input id="resource-name" type="text" placeholder="Ej. Guía de Marcas Canva">
+     </div>
+     <div class="form-field">
+      <label class="canva-text" for="resource-url">Enlace (URL)</label>
+      <input id="resource-url" type="url" placeholder="https://ejemplo.com">
+     </div>
+     <div class="form-field">
+      <label class="canva-text" for="resource-note">Notas / Descripción</label>
+      <textarea id="resource-note" placeholder="Breve descripción del recurso..."></textarea>
+     </div>
     </div>
-    <div class="form-field">
-     <label class="canva-text" for="resource-note">Notas / Descripción</label>
-     <textarea id="resource-note" placeholder="Breve descripción o anotación del recurso..."></textarea>
+
+    <!-- CAMPOS PARA EVALUACIÓN -->
+    <div id="fields-review" class="type-fields" style="display:none;">
+     <div class="form-field">
+      <label class="canva-text" for="review-title">Título de la Evaluación</label>
+      <input id="review-title" type="text" placeholder="Ej. Excelente Organización">
+     </div>
+     <div class="form-field">
+      <label class="canva-text" for="review-score">Puntuación (1 al 10)</label>
+      <input id="review-score" type="number" min="1" max="10" step="0.1" value="9.5" placeholder="Ej. 9.5">
+     </div>
+     <div class="form-field">
+      <label class="canva-text" for="review-comment">Comentario / Opinión</label>
+      <textarea id="review-comment" placeholder="Escribe tu evaluación o nota..."></textarea>
+     </div>
+     <div class="form-field">
+      <label class="canva-text" for="review-author">Autor / Evaluador</label>
+      <input id="review-author" type="text" placeholder="Ej. Ana P., Equipo Creativo">
+     </div>
     </div>
+
+    <!-- CAMPOS PARA FOTO -->
+    <div id="fields-photo" class="type-fields" style="display:none;">
+     <div class="form-field">
+      <label class="canva-text" for="photo-title">Título de la Foto</label>
+      <input id="photo-title" type="text" placeholder="Ej. Taller de Trabajo en Equipo">
+     </div>
+     <div class="form-field">
+      <label class="canva-text" for="photo-url">Enlace de la Imagen (URL)</label>
+      <input id="photo-url" type="url" placeholder="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
+     </div>
+     <div class="form-field">
+      <label class="canva-text" for="photo-date">Fecha / Subtítulo</label>
+      <input id="photo-date" type="text" placeholder="Ej. Agosto 2026">
+     </div>
+     <div class="form-field">
+      <label class="canva-text" for="photo-size">Tamaño en Cuadrícula</label>
+      <select id="photo-size" style="width:100%; border:1px solid #ddd7f3; background:#fbfaff; border-radius:12px; padding:11px 12px; font:inherit; color:var(--ink); outline:none;">
+       <option value="normal">Estándar (1x1)</option>
+       <option value="wide">Ancho (2x1)</option>
+       <option value="tall">Alto (1x2)</option>
+      </select>
+     </div>
+    </div>
+
+    <!-- CAMPO DE SEGURIDAD (CONTRASEÑA) -->
+    <div id="fields-auth" class="form-field" style="margin-top:16px; padding-top:14px; border-top:1px dashed #ddd7f3;">
+     <label class="canva-text" for="auth-password" style="display:flex; align-items:center; gap:6px; color:#6752e8; font-weight:700;">
+      <i data-lucide="lock" style="width:16px;height:16px"></i> Contraseña de Administración
+     </label>
+     <input id="auth-password" type="password" placeholder="Ingresa la contraseña de administración">
+     <p style="margin:4px 0 0; font-size:0.75rem; color:var(--muted);">Requerida únicamente para guardar en Enlaces y Galería de Fotos.</p>
+    </div>
+
     <p id="form-message" class="form-message" aria-live="polite"></p>
     <div class="form-actions">
      <button class="canva-button primary-button" type="submit">Guardar Cambios</button>
     </div>
    </form>
+  </div>
+
+  <!-- MODAL DE CONFIRMACIÓN DE ELIMINACIÓN CON CONTRASEÑA -->
+  <div id="delete-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+   <div class="modal" style="max-width:420px;">
+    <button id="close-delete-modal" class="canva-button icon-close" type="button" aria-label="Cerrar"><i data-lucide="x" style="width:18px;height:18px"></i></button>
+    <h2 id="delete-modal-title" class="canva-text" style="color:#d97706; display:flex; align-items:center; gap:8px;">
+     <i data-lucide="shield-alert" style="width:22px;height:22px"></i> Confirmar Eliminación
+    </h2>
+    <p class="canva-text">Este elemento requiere autorización. Ingresa la contraseña para confirmar que deseas eliminarlo.</p>
+    
+    <div class="form-field">
+     <label class="canva-text" for="delete-password">Contraseña de Administración</label>
+     <input id="delete-password" type="password" placeholder="Ingresa la contraseña de administración">
+    </div>
+
+    <p id="delete-form-message" class="form-message" aria-live="polite"></p>
+    <div class="form-actions" style="gap:10px; margin-top:18px;">
+     <button id="cancel-delete-btn" class="canva-button" type="button" style="padding:10px 16px; border-radius:12px; background:#f2effb; color:#514a76; font-weight:600;">Cancelar</button>
+     <button id="confirm-delete-btn" class="canva-button" type="button" style="padding:10px 18px; border-radius:12px; background:#e11d48; color:white; font-weight:700; box-shadow:0 8px 18px rgba(225,29,72,0.25);">Eliminar</button>
+    </div>
+   </div>
   </div>
 
   <!-- PLANTILLA PARA NUEVO RECURSO -->
@@ -449,22 +538,65 @@
         lucide.createIcons();
       }
 
+      // CONTRASEÑA DE ADMINISTRADOR
+      const ADMIN_PASSWORD = "Liby2026";
+
       // Manejo de pestañas
       const tabs = document.querySelectorAll(".tab-button");
       const panels = document.querySelectorAll(".panel");
+      const addBtnText = document.getElementById("add-btn-text");
+
+      const updateAddButtonText = (activeTabId) => {
+        if (!addBtnText) return;
+        if (activeTabId === "tab-links") addBtnText.textContent = "Añadir Recurso";
+        else if (activeTabId === "tab-reviews") addBtnText.textContent = "Añadir Evaluación";
+        else if (activeTabId === "tab-photos") addBtnText.textContent = "Añadir Foto";
+      };
+
       const activateTab = (tab) => {
         tabs.forEach(item => {
           item.classList.toggle("is-active", item === tab);
           item.setAttribute("aria-selected", String(item === tab));
         });
         panels.forEach(panel => panel.classList.toggle("is-active", panel.id === tab.dataset.panel));
+        updateAddButtonText(tab.id);
       };
 
       tabs.forEach(tab => tab.addEventListener("click", () => activateTab(tab)));
 
-      // Delegación de acciones de tarjetas (Editar y Eliminar)
+      // Modal y Formulario
+      const modal = document.getElementById("add-modal");
+      const itemTypeSelect = document.getElementById("item-type");
+      const fieldsLink = document.getElementById("fields-link");
+      const fieldsReview = document.getElementById("fields-review");
+      const fieldsPhoto = document.getElementById("fields-photo");
+      const fieldsAuth = document.getElementById("fields-auth");
+      const authPasswordInput = document.getElementById("auth-password");
+      const formMessage = document.getElementById("form-message");
+
+      // Modal de Eliminación
+      const deleteModal = document.getElementById("delete-modal");
+      const deletePasswordInput = document.getElementById("delete-password");
+      const deleteFormMessage = document.getElementById("delete-form-message");
+      let pendingDeleteCard = null;
+
       let editingCard = null;
 
+      const updateFormFields = () => {
+        const type = itemTypeSelect.value;
+        fieldsLink.style.display = type === "link" ? "block" : "none";
+        fieldsReview.style.display = type === "review" ? "block" : "none";
+        fieldsPhoto.style.display = type === "photo" ? "block" : "none";
+        
+        // Muestra el campo de contraseña únicamente para Links y Fotos
+        if (fieldsAuth) {
+          fieldsAuth.style.display = (type === "link" || type === "photo") ? "block" : "none";
+        }
+      };
+
+      itemTypeSelect.addEventListener("change", updateFormFields);
+
+      // Delegación de acciones en tarjetas (Editar y Eliminar)
       document.addEventListener("click", (event) => {
         const action = event.target.closest(".card-action");
         if (!action) return;
@@ -472,7 +604,16 @@
         if (!card) return;
 
         if (action.classList.contains("delete-action")) {
-          card.remove();
+          // Si es evaluación (pública), eliminar directamente
+          if (card.classList.contains("review-card")) {
+            card.remove();
+          } else {
+            // Si es Enlace o Foto, pedir contraseña de confirmación
+            pendingDeleteCard = card;
+            deletePasswordInput.value = "";
+            deleteFormMessage.textContent = "";
+            deleteModal.classList.add("is-open");
+          }
         } else if (action.classList.contains("edit-action")) {
           document.querySelectorAll(".is-editing").forEach(c => c.classList.remove("is-editing"));
           card.classList.add("is-editing");
@@ -480,28 +621,81 @@
         }
       });
 
-      const modal = document.getElementById("add-modal");
-      const titleInput = document.getElementById("resource-name");
-      const urlInput = document.getElementById("resource-url");
-      const noteInput = document.getElementById("resource-note");
-      const formMessage = document.getElementById("form-message");
+      // Confirmar o Cancelar Eliminación
+      const closeDeleteModal = () => {
+        deleteModal.classList.remove("is-open");
+        deletePasswordInput.value = "";
+        deleteFormMessage.textContent = "";
+        pendingDeleteCard = null;
+      };
+
+      document.getElementById("close-delete-modal").addEventListener("click", closeDeleteModal);
+      document.getElementById("cancel-delete-btn").addEventListener("click", closeDeleteModal);
+
+      document.getElementById("confirm-delete-btn").addEventListener("click", () => {
+        if (!pendingDeleteCard) return;
+        const enteredPass = deletePasswordInput.value.trim();
+        if (enteredPass !== ADMIN_PASSWORD) {
+          deleteFormMessage.textContent = "🔒 Contraseña incorrecta. No tienes permiso para eliminar este elemento.";
+          return;
+        }
+        pendingDeleteCard.remove();
+        closeDeleteModal();
+      });
 
       const openModal = (card = null) => {
         editingCard = card;
-        if (card) {
-          const titleEl = card.querySelector(".custom-title, h3, .photo-caption strong");
-          const urlEl = card.querySelector(".custom-url, a");
-          const noteEl = card.querySelector(".custom-description, p:not(.reviewer), .photo-caption span");
+        formMessage.textContent = "";
+        if (authPasswordInput) authPasswordInput.value = "";
 
-          titleInput.value = titleEl ? titleEl.textContent.trim() : "";
-          urlInput.value = urlEl ? (urlEl.getAttribute("href") || "") : "";
-          noteInput.value = noteEl ? noteEl.textContent.trim() : "";
+        if (card) {
+          if (card.classList.contains("review-card")) {
+            itemTypeSelect.value = "review";
+            const titleEl = card.querySelector("h3");
+            const scoreEl = card.querySelector(".score");
+            const commentEl = card.querySelector("p:not(.reviewer)");
+            const reviewerEl = card.querySelector(".reviewer");
+
+            document.getElementById("review-title").value = titleEl ? titleEl.textContent.trim() : "";
+            document.getElementById("review-score").value = scoreEl ? parseFloat(scoreEl.textContent) || 9 : 9;
+            document.getElementById("review-comment").value = commentEl ? commentEl.textContent.trim() : "";
+            document.getElementById("review-author").value = reviewerEl ? reviewerEl.textContent.replace(/^—\s*/, '').trim() : "";
+          } else if (card.classList.contains("photo-card")) {
+            itemTypeSelect.value = "photo";
+            const imgEl = card.querySelector("img");
+            const titleEl = card.querySelector(".photo-caption strong");
+            const dateEl = card.querySelector(".photo-caption span");
+
+            document.getElementById("photo-title").value = titleEl ? titleEl.textContent.trim() : "";
+            document.getElementById("photo-url").value = imgEl ? imgEl.getAttribute("src") : "";
+            document.getElementById("photo-date").value = dateEl ? dateEl.textContent.trim() : "";
+
+            let size = "normal";
+            if (card.classList.contains("tall")) size = "tall";
+            else if (card.classList.contains("wide")) size = "wide";
+            document.getElementById("photo-size").value = size;
+          } else {
+            itemTypeSelect.value = "link";
+            const titleEl = card.querySelector(".custom-title, h3");
+            const urlEl = card.querySelector(".custom-url, a");
+            const noteEl = card.querySelector(".custom-description, p");
+
+            document.getElementById("resource-name").value = titleEl ? titleEl.textContent.trim() : "";
+            document.getElementById("resource-url").value = urlEl ? (urlEl.getAttribute("href") || "") : "";
+            document.getElementById("resource-note").value = noteEl ? noteEl.textContent.trim() : "";
+          }
         } else {
           document.getElementById("resource-form").reset();
+          const activePanel = document.querySelector(".panel.is-active");
+          if (activePanel) {
+            if (activePanel.id === "reviews-panel") itemTypeSelect.value = "review";
+            else if (activePanel.id === "photos-panel") itemTypeSelect.value = "photo";
+            else itemTypeSelect.value = "link";
+          }
         }
-        formMessage.textContent = "";
+
+        updateFormFields();
         modal.classList.add("is-open");
-        titleInput.focus();
       };
 
       const closeModal = () => {
@@ -519,52 +713,147 @@
       modal.addEventListener("click", (event) => { if (event.target === modal) closeModal(); });
       document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeModal(); });
 
-      // Envío del formulario
+      // Generar estrellas según puntuación
+      const getStarsHtml = (scoreNum) => {
+        const rating5 = Math.round(Math.min(10, Math.max(1, scoreNum)) / 2);
+        let html = '';
+        for (let i = 1; i <= 5; i++) {
+          html += i <= rating5 ? `<i data-lucide="star" fill="currentColor"></i>` : `<i data-lucide="star"></i>`;
+        }
+        return html;
+      };
+
+      // Guardar cambios o nuevo elemento
       document.getElementById("resource-form").addEventListener("submit", (event) => {
         event.preventDefault();
-        const title = titleInput.value.trim();
-        const url = urlInput.value.trim();
-        const note = noteInput.value.trim();
+        const type = itemTypeSelect.value;
 
-        if (!title) {
-          formMessage.textContent = "Por favor, ingresa un título o nombre.";
-          return;
+        // Validar Contraseña para Links y Fotos
+        if (type === "link" || type === "photo") {
+          const enteredPass = authPasswordInput ? authPasswordInput.value.trim() : "";
+          if (enteredPass !== ADMIN_PASSWORD) {
+            formMessage.textContent = "🔒 Contraseña incorrecta. Se requiere la clave de administración para modificar Enlaces o Fotos.";
+            return;
+          }
         }
 
-        if (editingCard) {
-          const titleEl = editingCard.querySelector(".custom-title, h3, .photo-caption strong");
-          const urlEl = editingCard.querySelector(".custom-url, a");
-          const noteEl = editingCard.querySelector(".custom-description, p:not(.reviewer), .photo-caption span");
+        if (type === "link") {
+          const title = document.getElementById("resource-name").value.trim();
+          const url = document.getElementById("resource-url").value.trim() || "#";
+          const note = document.getElementById("resource-note").value.trim() || "Sin descripción.";
 
-          if (titleEl) titleEl.textContent = title;
-          if (urlEl && url) urlEl.setAttribute("href", url);
-          if (noteEl) noteEl.textContent = note;
+          if (!title) { formMessage.textContent = "Ingresa un título para el recurso."; return; }
 
-          closeModal();
-        } else {
-          const template = document.getElementById("custom-resource-template");
-          if (!template) return;
-
-          const clone = template.content.cloneNode(true);
-          const newCard = clone.querySelector("article");
-          
-          newCard.querySelector(".custom-title").textContent = title;
-          newCard.querySelector(".custom-description").textContent = note || "Sin descripción.";
-          
-          const linkBtn = newCard.querySelector(".custom-url");
-          if (url) {
-            linkBtn.setAttribute("href", url);
+          if (editingCard && !editingCard.classList.contains("review-card") && !editingCard.classList.contains("photo-card")) {
+            const titleEl = editingCard.querySelector(".custom-title, h3");
+            const urlEl = editingCard.querySelector(".custom-url, a");
+            const noteEl = editingCard.querySelector(".custom-description, p");
+            if (titleEl) titleEl.textContent = title;
+            if (urlEl) urlEl.setAttribute("href", url);
+            if (noteEl) noteEl.textContent = note;
           } else {
-            linkBtn.setAttribute("href", "#");
+            const card = document.createElement("article");
+            card.className = "canva-card resource-card";
+            card.innerHTML = `
+              <div class="card-actions">
+                <button class="card-action edit-action" type="button" aria-label="Editar recurso"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+                <button class="card-action delete-action" type="button" aria-label="Eliminar recurso"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+              </div>
+              <div class="canva-tag resource-icon" style="background: linear-gradient(135deg, #a568e9, #7357e8);"><i data-lucide="link" style="width:23px;height:23px"></i></div>
+              <h3 class="canva-text custom-title">${title}</h3>
+              <p class="canva-text custom-description">${note}</p>
+              <a class="canva-button link-button custom-url" href="${url}" target="_blank" rel="noopener noreferrer">Visitar <i data-lucide="arrow-up-right" style="width:16px;height:16px"></i></a>
+            `;
+            document.getElementById("links-grid").appendChild(card);
           }
+        } else if (type === "review") {
+          const title = document.getElementById("review-title").value.trim();
+          const score = parseFloat(document.getElementById("review-score").value) || 9.0;
+          const comment = document.getElementById("review-comment").value.trim() || "Sin comentarios adicionales.";
+          const author = document.getElementById("review-author").value.trim() || "Miembro del Equipo";
 
-          document.getElementById("links-grid").appendChild(clone);
-          
-          if (window.lucide) {
-            lucide.createIcons();
+          if (!title) { formMessage.textContent = "Ingresa un título para la evaluación."; return; }
+
+          const percentage = Math.min(100, Math.max(10, score * 10));
+
+          if (editingCard && editingCard.classList.contains("review-card")) {
+            const titleEl = editingCard.querySelector("h3");
+            const starsEl = editingCard.querySelector(".stars");
+            const meterEl = editingCard.querySelector(".meter span");
+            const scoreEl = editingCard.querySelector(".score");
+            const commentEl = editingCard.querySelector("p:not(.reviewer)");
+            const reviewerEl = editingCard.querySelector(".reviewer");
+
+            if (titleEl) titleEl.textContent = title;
+            if (starsEl) starsEl.innerHTML = getStarsHtml(score);
+            if (meterEl) meterEl.style.width = `${percentage}%`;
+            if (scoreEl) scoreEl.textContent = `${score} / 10`;
+            if (commentEl) commentEl.textContent = comment;
+            if (reviewerEl) reviewerEl.textContent = `— ${author}`;
+          } else {
+            const card = document.createElement("article");
+            card.className = "canva-card review-card";
+            card.innerHTML = `
+              <div class="card-actions">
+                <button class="card-action edit-action" type="button" aria-label="Editar evaluación"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+                <button class="card-action delete-action" type="button" aria-label="Eliminar evaluación"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+              </div>
+              <h3 class="canva-text">${title}</h3>
+              <div class="stars" aria-label="${score} de 10">${getStarsHtml(score)}</div>
+              <div class="rating-row">
+                <div class="meter"><span style="width:${percentage}%"></span></div>
+                <span class="canva-text score">${score} / 10</span>
+              </div>
+              <p class="canva-text">${comment}</p>
+              <p class="canva-text reviewer">— ${author}</p>
+            `;
+            document.querySelector("#reviews-panel .review-grid").appendChild(card);
           }
-          closeModal();
+        } else if (type === "photo") {
+          const title = document.getElementById("photo-title").value.trim();
+          const url = document.getElementById("photo-url").value.trim() || "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80";
+          const date = document.getElementById("photo-date").value.trim() || "Reciente";
+          const size = document.getElementById("photo-size").value;
+
+          if (!title) { formMessage.textContent = "Ingresa un título para la fotografía."; return; }
+
+          let sizeClass = "";
+          if (size === "tall") sizeClass = "tall";
+          else if (size === "wide") sizeClass = "wide";
+
+          if (editingCard && editingCard.classList.contains("photo-card")) {
+            editingCard.className = `photo-card ${sizeClass}`.trim();
+            const imgEl = editingCard.querySelector("img");
+            const titleEl = editingCard.querySelector(".photo-caption strong");
+            const dateEl = editingCard.querySelector(".photo-caption span");
+
+            if (imgEl) { imgEl.src = url; imgEl.alt = title; }
+            if (titleEl) titleEl.textContent = title;
+            if (dateEl) dateEl.textContent = date;
+          } else {
+            const card = document.createElement("figure");
+            card.className = `photo-card ${sizeClass}`.trim();
+            card.setAttribute("tabindex", "0");
+            card.innerHTML = `
+              <div class="card-actions">
+                <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+                <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+              </div>
+              <img class="canva-image" src="${url}" alt="${title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80'">
+              <figcaption class="photo-caption">
+                <strong class="canva-text">${title}</strong>
+                <span class="canva-text">${date}</span>
+              </figcaption>
+            `;
+            document.querySelector("#photos-panel .photo-grid").appendChild(card);
+          }
         }
+
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+
+        closeModal();
       });
     });
   </script>
