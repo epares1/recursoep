@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="es">
- <head>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Centro de Recursos y Memorias</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #27224a;
@@ -83,15 +83,10 @@
     }
     .primary-button {
       display: inline-flex; align-items: center; justify-content: center; gap: 9px;
-      padding: 14px 19px; border-radius: 15px;
-      background: linear-gradient(135deg, #7357e8, #ed65b4);
-      color: white; font-weight: 700;
-      box-shadow: 0 14px 24px rgba(113, 79, 223, .25);
+      padding: 14px 19px; border-radius: 15px; background: linear-gradient(135deg, #7357e8, #ed65b4); color: white;
+      font-weight: 600; box-shadow: 0 14px 24px rgba(113, 79, 223, .25);
     }
     .primary-button:hover, .link-button:hover { transform: translateY(-3px); box-shadow: 0 16px 25px rgba(82, 66, 156, .24); }
-    .primary-button:focus-visible, .link-button:focus-visible, .tab-button:focus-visible, .photo-card:focus-visible, .icon-close:focus-visible {
-      outline: 3px solid #2a8fff; outline-offset: 3px;
-    }
 
     .hero-art {
       min-height: 190px; border-radius: 24px; position: relative; overflow: hidden;
@@ -102,15 +97,6 @@
     .hero-art::after { width: 145px; height: 145px; left: -37px; bottom: -54px; }
     .spark { position: absolute; color: white; opacity: .9; }
     .spark.one { top: 29px; left: 37px; } .spark.two { right: 38px; bottom: 31px; }
-    .art-stack { position:absolute; inset: 38px 45px; transform: rotate(-6deg); }
-    .art-note {
-      position: absolute; width: 125px; height: 82px; background: rgba(255,255,255,.89);
-      border-radius: 14px; box-shadow: 0 14px 25px rgba(45,28,110,.22);
-    }
-    .art-note:nth-child(1) { left: 7px; top: 26px; transform: rotate(-7deg); }
-    .art-note:nth-child(2) { right: 10px; top: 3px; background: #ffd0eb; transform: rotate(10deg); }
-    .art-note:nth-child(3) { left: 78px; bottom: 1px; background: #c9edff; transform: rotate(3deg); }
-    .art-note::after { content: ""; position: absolute; left: 17px; right: 17px; top: 24px; height: 7px; border-radius: 6px; background: rgba(80,65,142,.2); box-shadow: 0 16px 0 rgba(80,65,142,.13), 0 32px 0 rgba(80,65,142,.1); }
 
     .tabs-wrap { display: flex; justify-content: center; margin: 32px 0 24px; }
     .tabs {
@@ -127,47 +113,45 @@
     .section-heading h2 { margin: 0; font-family: "Fraunces", serif; letter-spacing: -.03em; font-size: 1.8rem; }
     .section-heading p { margin: 0; color: var(--muted); font-size: .92rem; }
 
-    .links-grid, .review-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .links-grid, .review-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
     .resource-card, .review-card {
-      background: rgba(255, 255, 255, 0.85);
       border: 1px solid rgba(255,255,255,.85); border-radius: 23px; padding: 22px; position: relative;
-      box-shadow: 0 14px 35px rgba(65,51,123,.1); transition: transform .25s ease, box-shadow .25s ease;
+      background: white; box-shadow: 0 14px 35px rgba(65,51,123,.1); transition: transform .25s ease, box-shadow .25s ease;
     }
     .resource-card:hover, .review-card:hover { transform: translateY(-6px); box-shadow: 0 20px 42px rgba(65,51,123,.16); }
     .card-actions { position:absolute; top:12px; right:12px; display:flex; gap:5px; z-index:2; opacity:0; transition:opacity .2s ease; }
-    .resource-card:hover .card-actions, .review-card:hover .card-actions, .photo-card:hover .card-actions, .card-actions:focus-within { opacity:1; }
+    .resource-card:hover .card-actions, .review-card:hover .card-actions, .photo-card:hover .card-actions { opacity:1; }
     .card-action { width:30px; height:30px; display:grid; place-items:center; border:0; border-radius:9px; background:rgba(255,255,255,.9); color:#5b4a9b; cursor:pointer; box-shadow:0 4px 10px rgba(48,35,104,.16); }
     .card-action:hover { background:#7357e8; color:#fff; }
-    .is-editing { outline:3px solid #7357e8; outline-offset:3px; }
-    .resource-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 16px; color: white; margin-bottom: 21px; background: linear-gradient(135deg, #7357e8, #4e9df5); }
+    
+    .resource-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 16px; color: white; background: var(--violet); margin-bottom: 21px; }
     .resource-card h3, .review-card h3 { margin: 0 0 8px; font-size: 1.1rem; }
     .resource-card p, .review-card p { margin: 0; color: #6d6788; line-height: 1.55; font-size: .91rem; }
-    .link-button { display: inline-flex; align-items: center; gap: 7px; margin-top: 21px; padding: 10px 13px; border-radius: 11px; text-decoration: none; font-weight: 700; font-size: .88rem; background: rgba(115, 87, 232, 0.1); color: #7357e8; }
+    .link-button { display: inline-flex; align-items: center; gap: 7px; margin-top: 21px; padding: 10px 13px; border-radius: 11px; background: #f0ecfc; color: #7357e8; text-decoration: none; font-weight: 700; font-size: .88rem; }
 
-    .stars { display: flex; gap: 3px; color: #ffb548; margin: 12px 0 15px; }
-    .rating-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-    .meter { height: 9px; overflow: hidden; border-radius: 999px; background: rgba(91,72,168,.12); flex: 1; }
-    .meter span { display:block; height:100%; border-radius: inherit; background: linear-gradient(90deg, #7860e9, #ef71ba); }
-    .score { font-weight: 700; font-size: .82rem; color: #61588b; }
+    .rating-row { display: flex; align-items: center; gap: 10px; margin: 10px 0 16px; }
+    .score { font-weight: 700; font-size: .88rem; color: #7357e8; background: #f0ecfc; padding: 3px 8px; border-radius: 6px; }
     .reviewer { margin-top: 18px !important; font-weight: 700; color: #4e4774 !important; font-size: .82rem !important; }
 
-    .photo-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); grid-auto-rows: 168px; gap: 16px; }
-    .photo-card { position: relative; overflow: hidden; border: 4px solid rgba(255,255,255,.78); border-radius: 21px; box-shadow: 0 13px 29px rgba(62,48,116,.14); display: block; }
-    .photo-card.tall { grid-row: span 2; } .photo-card.wide { grid-column: span 2; }
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); grid-auto-rows: 200px; gap: 16px; }
+    .photo-card { position: relative; overflow: hidden; border: 4px solid rgba(255,255,255,.78); border-radius: 21px; box-shadow: 0 13px 29px rgba(62,48,116,.14); display: block; background: #fff; }
+    .photo-card.tall { grid-row: span 2; } 
+    .photo-card.wide { grid-column: span 2; }
     .photo-card img { width:100%; height:100%; object-fit:cover; transition: transform .55s cubic-bezier(.2,.8,.2,1); }
-    .photo-card:hover img, .photo-card:focus img { transform: scale(1.1); }
+    .photo-card:hover img { transform: scale(1.1); }
     .photo-caption { position:absolute; left:0; right:0; bottom:0; padding: 28px 15px 14px; color:white; background: linear-gradient(transparent, rgba(24,16,62,.86)); transform: translateY(30%); opacity: 0; transition: .3s ease; }
-    .photo-card:hover .photo-caption, .photo-card:focus .photo-caption { transform: translateY(0); opacity:1; }
+    .photo-card:hover .photo-caption { transform: translateY(0); opacity:1; }
     .photo-caption strong, .photo-caption span { display:block; } .photo-caption strong { font-size:.88rem; } .photo-caption span { font-size:.74rem; opacity:.85; margin-top:3px; }
 
     .modal-backdrop { position:fixed; inset:0; z-index:20; display:none; align-items:center; justify-content:center; padding:20px; background:rgba(35,27,76,.43); backdrop-filter:blur(7px); }
     .modal-backdrop.is-open { display:flex; }
     .modal { width:min(100%, 500px); padding:27px; border-radius:25px; background:#fff; box-shadow:0 25px 65px rgba(32,23,72,.3); position:relative; animation:rise .26s ease both; }
-    .modal h2 { margin:0 0 7px; font-family:"Fraunces",serif; font-size: 1.5rem; } .modal p { color:var(--muted); margin:0 0 20px; font-size: 0.9rem; }
+    .modal h2 { margin:0 0 7px; font-family:"Fraunces",serif; font-size: 1.5rem; } 
+    .modal p { color:var(--muted); margin:0 0 20px; font-size: .9rem; }
     .icon-close { position:absolute; right:16px; top:16px; width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:#f2effb; color:#514a76; }
     .form-field { margin-top:14px; } .form-field label { display:block; margin-bottom:6px; font-size:.85rem; font-weight:700; color:#50486f; }
-    .form-field input, .form-field textarea { width:100%; border:1px solid #ddd7f3; background:#fbfaff; border-radius:12px; padding:11px 12px; font:inherit; color:var(--ink); outline:none; }
-    .form-field textarea { min-height:78px; resize:vertical; } .form-field input:focus, .form-field textarea:focus { border-color:#7357e8; box-shadow:0 0 0 3px rgba(115,87,232,.13); }
+    .form-field input, .form-field textarea, .form-field select { width:100%; border:1px solid #ddd7f3; background:#fbfaff; border-radius:12px; padding:11px 12px; font:inherit; color:var(--ink); outline:none; }
+    .form-field textarea { min-height:78px; resize:vertical; } .form-field input:focus, .form-field textarea:focus, .form-field select:focus { border-color:#7357e8; box-shadow:0 0 0 3px rgba(115,87,232,.13); }
     .form-message { min-height:20px; margin-top:10px !important; color:#b13775 !important; font-size:.84rem; }
     .form-actions { margin-top:15px; display:flex; justify-content:flex-end; }
 
@@ -176,522 +160,329 @@
     @keyframes drift { 50% { transform:translate(16px, 18px) scale(1.05); } }
 
     @media (max-width: 760px) {
-      .app-shell { padding:18px 14px 35px; } .topline { margin-bottom:18px; } .hero-card { grid-template-columns:1fr; border-radius:24px; padding:28px; } .hero-art { min-height:160px; }
-      .links-grid, .review-grid { grid-template-columns:1fr; } .photo-grid { grid-template-columns:repeat(2,1fr); grid-auto-rows:150px; } .photo-card.wide { grid-column:span 2; }
-      .section-heading { align-items:flex-start; flex-direction:column; } .tabs { width:100%; justify-content:space-between; } .tab-button { padding:10px 11px; font-size:.84rem; }
+      .app-shell { padding:18px 14px 35px; } 
+      .hero-card { grid-template-columns:1fr; border-radius:24px; padding:28px; } 
+      .hero-art { min-height:160px; }
+      .links-grid, .review-grid { grid-template-columns:1fr; } 
+      .photo-grid { grid-template-columns:repeat(2,1fr); grid-auto-rows:150px; } 
+      .photo-card.wide { grid-column:span 2; }
+      .section-heading { align-items:flex-start; flex-direction:column; } 
+      .tabs { width:100%; justify-content:space-between; } 
+      .tab-button { padding:10px 11px; font-size:.84rem; }
     }
   </style>
- </head>
- <body>
+</head>
+<body>
   <div class="app-shell">
-   <div class="orb orb-one"></div>
-   <div class="orb orb-two"></div>
-   <div class="orb orb-three"></div>
-   <header class="content-width">
-    <div class="topline">
-     <div class="flex items-center gap-3">
-      <div class="brand-mark" aria-hidden="true">
-       <i data-lucide="sparkles" style="width:19px;height:19px"></i>
-      </div>
-      <span class="canva-text eyebrow">Memorias &amp; Recursos</span>
-     </div>
-     <span class="canva-tag px-3 py-1 bg-white/70 rounded-full font-medium text-xs text-purple-700 shadow-sm border border-purple-100">Espacio Colaborativo</span>
-    </div>
-    <section class="canva-banner hero-card">
-     <div>
-      <span class="canva-text eyebrow text-purple-600">Colección Digital</span>
-      <h1 class="canva-text hero-title text-slate-800">Centro de Recursos y Memorias</h1>
-      <p class="canva-text hero-subtitle">Un espacio centralizado para guardar enlaces útiles, notas de evaluación y recuerdos fotográficos en un solo lugar interactivo.</p>
-      <div class="hero-actions">
-       <button id="open-modal-button" class="canva-button primary-button" type="button" aria-controls="add-modal" aria-haspopup="dialog">
-        <i data-lucide="plus" style="width:18px;height:18px"></i> <span id="add-btn-text">Añadir Recurso</span>
-       </button>
-      </div>
-     </div>
-     <div class="hero-art" aria-hidden="true">
-      <i class="spark one" data-lucide="sparkle" style="width:26px;height:26px"></i>
-      <i class="spark two" data-lucide="heart" style="width:25px;height:25px"></i>
-      <div class="art-stack">
-       <div class="art-note"></div>
-       <div class="art-note"></div>
-       <div class="art-note"></div>
-      </div>
-     </div>
-    </section>
-   </header>
-   <main class="content-width">
-    <nav class="tabs-wrap" aria-label="Secciones del centro de recursos">
-     <div class="tabs" role="tablist">
-      <button id="tab-links" class="canva-tabs tab-button is-active" type="button" role="tab" aria-selected="true" aria-controls="links-panel" data-panel="links-panel">Enlaces y Recursos</button>
-      <button id="tab-reviews" class="canva-tabs tab-button" type="button" role="tab" aria-selected="false" aria-controls="reviews-panel" data-panel="reviews-panel">Evaluaciones y Notas</button>
-      <button id="tab-photos" class="canva-tabs tab-button" type="button" role="tab" aria-selected="false" aria-controls="photos-panel" data-panel="photos-panel">Galería de Fotos</button>
-     </div>
-    </nav>
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+    <div class="orb orb-three"></div>
     
-    <!-- ENLACES Y RECURSOS PANEL -->
-    <section id="links-panel" class="panel is-active" role="tabpanel" aria-labelledby="tab-links">
-     <div class="section-heading">
-      <div>
-       <h2 class="canva-text text-2xl font-bold">Recursos Útiles</h2>
-       <p class="canva-text">Acceso rápido a las herramientas y plataformas principales del equipo.</p>
+    <header class="content-width">
+      <div class="topline">
+        <div class="flex items-center gap-3">
+          <div class="brand-mark"><i data-lucide="sparkles" style="width:19px;height:19px"></i></div>
+          <span class="eyebrow">Entre Pares</span>
+        </div>
+        <span>Activo</span>
       </div>
-     </div>
-     <div id="links-grid" class="links-grid">
-      <article class="canva-card resource-card">
-       <div class="card-actions">
-        <button class="card-action edit-action" type="button" aria-label="Editar recurso"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-        <button class="card-action delete-action" type="button" aria-label="Eliminar recurso"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-       </div>
-       <div class="canva-tag resource-icon"><i data-lucide="palette" style="width:23px;height:23px"></i></div>
-       <h3 class="canva-text">Canva Pro</h3>
-       <p class="canva-text">Plataforma central para la creación de diseños gráficos, presentaciones y contenido visual.</p>
-       <a class="canva-button link-button" href="https://www.canva.com" target="_blank" rel="noopener noreferrer">Visitar <i data-lucide="arrow-up-right" style="width:16px;height:16px"></i></a>
-      </article>
-      <article class="canva-card resource-card">
-       <div class="card-actions">
-        <button class="card-action edit-action" type="button" aria-label="Editar recurso"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-        <button class="card-action delete-action" type="button" aria-label="Eliminar recurso"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-       </div>
-       <div class="canva-tag resource-icon" style="background: linear-gradient(135deg, #4e9df5, #6752e8);"><i data-lucide="layout-template" style="width:23px;height:23px"></i></div>
-       <h3 class="canva-text">Notion Workspace</h3>
-       <p class="canva-text">Base de conocimiento principal, documentación de proyectos y tareas colaborativas.</p>
-       <a class="canva-button link-button" href="https://www.notion.so" target="_blank" rel="noopener noreferrer">Visitar <i data-lucide="arrow-up-right" style="width:16px;height:16px"></i></a>
-      </article>
-      <article class="canva-card resource-card">
-       <div class="card-actions">
-        <button class="card-action edit-action" type="button" aria-label="Editar recurso"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-        <button class="card-action delete-action" type="button" aria-label="Eliminar recurso"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-       </div>
-       <div class="canva-tag resource-icon" style="background: linear-gradient(135deg, #ed65b4, #7357e8);"><i data-lucide="cloud" style="width:23px;height:23px"></i></div>
-       <h3 class="canva-text">Google Drive</h3>
-       <p class="canva-text">Repositorio seguro para archivos, documentos compartilhados y respaldos del proyecto.</p>
-       <a class="canva-button link-button" href="https://drive.google.com" target="_blank" rel="noopener noreferrer">Visitar <i data-lucide="arrow-up-right" style="width:16px;height:16px"></i></a>
-      </article>
-     </div>
-    </section>
+      
+      <section class="hero-card">
+        <div>
+          <span class="eyebrow">Plataforma Colaborativa</span>
+          <h1 class="hero-title">Centro de Recursos y Memorias</h1>
+          <p class="hero-subtitle">Espacio para compartir recursos útiles, reseñas de herramientas y recuerdos fotográficos.</p>
+          <div class="hero-actions">
+            <button id="open-modal-button" class="primary-button" type="button">
+              <i data-lucide="plus" style="width:18px;height:18px"></i> Añadir Nuevo Elemento
+            </button>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <i class="spark one" data-lucide="sparkle" style="width:26px;height:26px"></i>
+          <i class="spark two" data-lucide="heart" style="width:25px;height:25px"></i>
+        </div>
+      </section>
+    </header>
 
-    <!-- EVALUACIONES PANEL -->
-    <section id="reviews-panel" class="panel" role="tabpanel" aria-labelledby="tab-reviews">
-     <div class="section-heading">
-      <div>
-       <h2 class="canva-text text-2xl font-bold">Evaluaciones y Comentarios</h2>
-       <p class="canva-text">Retroalimentación destacada de los miembros y clientes sobre los entregables.</p>
-      </div>
-     </div>
-     <div class="review-grid">
-      <article class="canva-card review-card">
-       <div class="card-actions">
-        <button class="card-action edit-action" type="button" aria-label="Editar evaluación"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-        <button class="card-action delete-action" type="button" aria-label="Eliminar evaluación"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-       </div>
-       <h3 class="canva-text">Excelente Organización</h3>
-       <div class="stars" aria-label="5 de 5 estrellas"><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i></div>
-       <div class="rating-row">
-        <div class="meter"><span style="width:96%"></span></div>
-        <span class="canva-text score">9.6 / 10</span>
-       </div>
-       <p class="canva-text">La estructura del centro de recursos simplificó de manera increíble nuestro flujo de trabajo diario.</p>
-       <p class="canva-text reviewer">— Laura M., Líder de Diseño</p>
-      </article>
-      <article class="canva-card review-card">
-       <div class="card-actions">
-        <button class="card-action edit-action" type="button" aria-label="Editar evaluación"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-        <button class="card-action delete-action" type="button" aria-label="Eliminar evaluación"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-       </div>
-       <h3 class="canva-text">Diseño Intuitivo</h3>
-       <div class="stars" aria-label="4 de 5 estrellas"><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star"></i></div>
-       <div class="rating-row">
-        <div class="meter"><span style="width:88%"></span></div>
-        <span class="canva-text score">8.8 / 10</span>
-       </div>
-       <p class="canva-text">La navegación fluida y las tarjetas interactivas hacen que consultar información sea muy ágil.</p>
-       <p class="canva-text reviewer">— Carlos R., Desarrollo Web</p>
-      </article>
-      <article class="canva-card review-card">
-       <div class="card-actions">
-        <button class="card-action edit-action" type="button" aria-label="Editar evaluación"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-        <button class="card-action delete-action" type="button" aria-label="Eliminar evaluación"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-       </div>
-       <h3 class="canva-text">Impacto Positivo</h3>
-       <div class="stars" aria-label="5 de 5 estrellas"><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i><i data-lucide="star" fill="currentColor"></i></div>
-       <div class="rating-row">
-        <div class="meter"><span style="width:100%"></span></div>
-        <span class="canva-text score">10 / 10</span>
-       </div>
-       <p class="canva-text">Nos ayudó a centralizar archivos clave que antes estaban dispersos entre múltiples correos.</p>
-       <p class="canva-text reviewer">— Elena P., Gerente de Proyecto</p>
-      </article>
-     </div>
-    </section>
+    <main class="content-width">
+      <nav class="tabs-wrap">
+        <div class="tabs" role="tablist">
+          <button id="tab-links" class="tab-button is-active" type="button" role="tab" data-panel="links-panel">Enlaces y Recursos</button>
+          <button id="tab-reviews" class="tab-button" type="button" role="tab" data-panel="reviews-panel">Evaluaciones y Notas</button>
+          <button id="tab-photos" class="tab-button" type="button" role="tab" data-panel="photos-panel">Galería de Fotos</button>
+        </div>
+      </nav>
 
-    <!-- GALERÍA DE FOTOS PANEL -->
-    <section id="photos-panel" class="panel" role="tabpanel" aria-labelledby="tab-photos">
-     <div class="section-heading">
-      <div>
-       <h2 class="canva-text text-2xl font-bold">Galería de Recuerdos</h2>
-       <p class="canva-text">Momentos memorables y capturas destacadas de nuestros eventos y sesiones creativas.</p>
-      </div>
-     </div>
-     <div class="photo-grid">
-      <figure class="photo-card tall" tabindex="0">
-       <div class="card-actions">
-        <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-        <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-       </div>
-       <img class="canva-image" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Sesión de Colaboración" loading="lazy">
-       <figcaption class="photo-caption">
-        <strong class="canva-text">Sesión de Colaboración</strong>
-        <span class="canva-text">Mayo 2026</span>
-       </figcaption>
-      </figure>
-      <figure class="photo-card wide" tabindex="0">
-       <div class="card-actions">
-        <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-        <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-       </div>
-       <img class="canva-image" src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Taller Creativo" loading="lazy">
-       <figcaption class="photo-caption">
-        <strong class="canva-text">Taller Creativo Anual</strong>
-        <span class="canva-text">Junio 2026</span>
-       </figcaption>
-      </figure>
-      <figure class="photo-card" tabindex="0">
-       <div class="card-actions">
-        <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-        <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-       </div>
-       <img class="canva-image" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="Brainstorming" loading="lazy">
-       <figcaption class="photo-caption">
-        <strong class="canva-text">Lanzamiento de Estrategia</strong>
-        <span class="canva-text">Julio 2026</span>
-       </figcaption>
-      </figure>
-      <figure class="photo-card" tabindex="0">
-       <div class="card-actions">
-        <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-        <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-       </div>
-       <img class="canva-image" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="Celebración del Equipo" loading="lazy">
-       <figcaption class="photo-caption">
-        <strong class="canva-text">Celebración del Equipo</strong>
-        <span class="canva-text">Agosto 2026</span>
-       </figcaption>
-      </figure>
-      <figure class="photo-card" tabindex="0">
-       <div class="card-actions">
-        <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-        <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-       </div>
-       <img class="canva-image" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Espacio de Trabajo" loading="lazy">
-       <figcaption class="photo-caption">
-        <strong class="canva-text">Espacio de Trabajo</strong>
-        <span class="canva-text">Agosto 2026</span>
-       </figcaption>
-      </figure>
-      <figure class="photo-card" tabindex="0">
-       <div class="card-actions">
-        <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-        <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-       </div>
-       <img class="canva-image" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="Planificación" loading="lazy">
-       <figcaption class="photo-caption">
-        <strong class="canva-text">Reunión de Planificación</strong>
-        <span class="canva-text">Agosto 2026</span>
-       </figcaption>
-      </figure>
-     </div>
-    </section>
-   </main>
+      <!-- Panel Enlaces -->
+      <section id="links-panel" class="panel is-active" role="tabpanel">
+        <div class="section-heading">
+          <div>
+            <h2>Recursos Recomendados 🔒</h2>
+            <p>Herramientas y sitios útiles compartidos por el equipo (Se requiere clave para editar).</p>
+          </div>
+        </div>
+        <div id="links-grid" class="links-grid"></div>
+      </section>
+
+      <!-- Panel Evaluaciones -->
+      <section id="reviews-panel" class="panel" role="tabpanel">
+        <div class="section-heading">
+          <div>
+            <h2>Evaluaciones y Notas Libre 💬</h2>
+            <p>Comentarios y valoraciones públicas sobre herramientas (Acceso libre a todos).</p>
+          </div>
+        </div>
+        <div id="reviews-grid" class="review-grid"></div>
+      </section>
+
+      <!-- Panel Fotos -->
+      <section id="photos-panel" class="panel" role="tabpanel">
+        <div class="section-heading">
+          <div>
+            <h2>Galería de Fotos 🔒</h2>
+            <p>Memorias y momentos guardados (Se requiere clave para editar).</p>
+          </div>
+        </div>
+        <div id="photos-grid" class="photo-grid"></div>
+      </section>
+    </main>
   </div>
 
-  <!-- MODAL PARA AÑADIR / EDITAR -->
-  <div id="add-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-   <form id="resource-form" class="modal">
-    <button id="close-modal-button" class="canva-button icon-close" type="button" aria-label="Cerrar"><i data-lucide="x" style="width:18px;height:18px"></i></button>
-    <h2 id="modal-title" class="canva-text">Gestión de Elemento</h2>
-    <p class="canva-text">Ingresa los detalles para agregar o actualizar la información en la colección.</p>
-    
-    <div class="form-field">
-     <label class="canva-text" for="item-type">Categoría / Tipo de Elemento</label>
-     <select id="item-type" style="width:100%; border:1px solid #ddd7f3; background:#fbfaff; border-radius:12px; padding:11px 12px; font:inherit; color:var(--ink); outline:none;">
-      <option value="link">🔗 Enlace / Recurso Útil (🔒 Requiere Contraseña)</option>
-      <option value="review">⭐ Evaluación / Nota (Público)</option>
-      <option value="photo">🖼️ Foto para la Galería (🔒 Requiere Contraseña)</option>
-     </select>
-    </div>
+  <!-- Modal -->
+  <div id="add-modal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <form id="resource-form" class="modal">
+      <button id="close-modal-button" class="icon-close" type="button"><i data-lucide="x" style="width:18px;height:18px"></i></button>
+      <h2 id="modal-title">Añadir Elemento</h2>
+      <p>Selecciona la sección y completa los datos.</p>
 
-    <!-- CAMPOS PARA ENLACE -->
-    <div id="fields-link" class="type-fields">
-     <div class="form-field">
-      <label class="canva-text" for="resource-name">Nombre o Título del Recurso</label>
-      <input id="resource-name" type="text" placeholder="Ej. Guía de Marcas Canva">
-     </div>
-     <div class="form-field">
-      <label class="canva-text" for="resource-url">Enlace (URL)</label>
-      <input id="resource-url" type="url" placeholder="https://ejemplo.com">
-     </div>
-     <div class="form-field">
-      <label class="canva-text" for="resource-note">Notas / Descripción</label>
-      <textarea id="resource-note" placeholder="Breve descripción del recurso..."></textarea>
-     </div>
-    </div>
+      <div class="form-field">
+        <label for="item-type">Categoría / Tipo de Elemento</label>
+        <select id="item-type">
+          <option value="link">🔗 Enlace / Recurso (🔒 Requiere Clave)</option>
+          <option value="review">💬 Evaluación / Nota (Libre)</option>
+          <option value="photo">🖼️ Galería de Fotos (🔒 Requiere Clave)</option>
+        </select>
+      </div>
 
-    <!-- CAMPOS PARA EVALUACIÓN -->
-    <div id="fields-review" class="type-fields" style="display:none;">
-     <div class="form-field">
-      <label class="canva-text" for="review-title">Título de la Evaluación</label>
-      <input id="review-title" type="text" placeholder="Ej. Excelente Organización">
-     </div>
-     <div class="form-field">
-      <label class="canva-text" for="review-score">Puntuación (1 al 10)</label>
-      <input id="review-score" type="number" min="1" max="10" step="0.1" value="9.5" placeholder="Ej. 9.5">
-     </div>
-     <div class="form-field">
-      <label class="canva-text" for="review-comment">Comentario / Opinión</label>
-      <textarea id="review-comment" placeholder="Escribe tu evaluación o nota..."></textarea>
-     </div>
-     <div class="form-field">
-      <label class="canva-text" for="review-author">Autor / Evaluador</label>
-      <input id="review-author" type="text" placeholder="Ej. Ana P., Equipo Creativo">
-     </div>
-    </div>
+      <div class="form-field">
+        <label id="label-title" for="input-title">Título o Nombre</label>
+        <input id="input-title" type="text" required placeholder="Ej: Herramienta de Diseño">
+      </div>
 
-    <!-- CAMPOS PARA FOTO -->
-    <div id="fields-photo" class="type-fields" style="display:none;">
-     <div class="form-field">
-      <label class="canva-text" for="photo-title">Título de la Foto</label>
-      <input id="photo-title" type="text" placeholder="Ej. Taller de Trabajo en Equipo">
-     </div>
-     <div class="form-field">
-      <label class="canva-text" for="photo-url">Enlace de la Imagen (URL)</label>
-      <input id="photo-url" type="url" placeholder="https://images.unsplash.com/photo-1522071820081-009f0129c71c">
-     </div>
-     <div class="form-field">
-      <label class="canva-text" for="photo-date">Fecha / Subtítulo</label>
-      <input id="photo-date" type="text" placeholder="Ej. Agosto 2026">
-     </div>
-     <div class="form-field">
-      <label class="canva-text" for="photo-size">Tamaño en Cuadrícula</label>
-      <select id="photo-size" style="width:100%; border:1px solid #ddd7f3; background:#fbfaff; border-radius:12px; padding:11px 12px; font:inherit; color:var(--ink); outline:none;">
-       <option value="normal">Estándar (1x1)</option>
-       <option value="wide">Ancho (2x1)</option>
-       <option value="tall">Alto (1x2)</option>
-      </select>
-     </div>
-    </div>
+      <div class="form-field" id="field-url">
+        <label id="label-url" for="input-url">Enlace (URL)</label>
+        <input id="input-url" type="url" placeholder="https://...">
+      </div>
 
-    <!-- CAMPO DE SEGURIDAD (CONTRASEÑA) -->
-    <div id="fields-auth" class="form-field" style="margin-top:16px; padding-top:14px; border-top:1px dashed #ddd7f3;">
-     <label class="canva-text" for="auth-password" style="display:flex; align-items:center; gap:6px; color:#6752e8; font-weight:700;">
-      <i data-lucide="lock" style="width:16px;height:16px"></i> Contraseña de Administración
-     </label>
-     <input id="auth-password" type="password" placeholder="Ingresa la contraseña de administración">
-     <p style="margin:4px 0 0; font-size:0.75rem; color:var(--muted);">Requerida únicamente para guardar en Enlaces y Galería de Fotos.</p>
-    </div>
+      <div class="form-field" id="field-score" style="display:none;">
+        <label for="input-score">Puntuación / Nota (1 a 10)</label>
+        <input id="input-score" type="text" placeholder="Ej: 9.5/10">
+      </div>
 
-    <p id="form-message" class="form-message" aria-live="polite"></p>
-    <div class="form-actions">
-     <button class="canva-button primary-button" type="submit">Guardar Cambios</button>
-    </div>
-   </form>
+      <div class="form-field">
+        <label id="label-desc" for="input-desc">Descripción o Detalles</label>
+        <textarea id="input-desc" placeholder="Escribe detalles breves..."></textarea>
+      </div>
+
+      <div class="form-field" id="field-author" style="display:none;">
+        <label for="input-author">Autor o Tu Nombre</label>
+        <input id="input-author" type="text" placeholder="Ej: Carlos M.">
+      </div>
+
+      <p id="form-message" class="form-message"></p>
+      
+      <div class="form-actions">
+        <button class="primary-button" type="submit">Guardar Elemento</button>
+      </div>
+    </form>
   </div>
-
-  <!-- MODAL DE CONFIRMACIÓN DE ELIMINACIÓN CON CONTRASEÑA -->
-  <div id="delete-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
-   <div class="modal" style="max-width:420px;">
-    <button id="close-delete-modal" class="canva-button icon-close" type="button" aria-label="Cerrar"><i data-lucide="x" style="width:18px;height:18px"></i></button>
-    <h2 id="delete-modal-title" class="canva-text" style="color:#d97706; display:flex; align-items:center; gap:8px;">
-     <i data-lucide="shield-alert" style="width:22px;height:22px"></i> Confirmar Eliminación
-    </h2>
-    <p class="canva-text">Este elemento requiere autorización. Ingresa la contraseña para confirmar que deseas eliminarlo.</p>
-    
-    <div class="form-field">
-     <label class="canva-text" for="delete-password">Contraseña de Administración</label>
-     <input id="delete-password" type="password" placeholder="Ingresa la contraseña de administración">
-    </div>
-
-    <p id="delete-form-message" class="form-message" aria-live="polite"></p>
-    <div class="form-actions" style="gap:10px; margin-top:18px;">
-     <button id="cancel-delete-btn" class="canva-button" type="button" style="padding:10px 16px; border-radius:12px; background:#f2effb; color:#514a76; font-weight:600;">Cancelar</button>
-     <button id="confirm-delete-btn" class="canva-button" type="button" style="padding:10px 18px; border-radius:12px; background:#e11d48; color:white; font-weight:700; box-shadow:0 8px 18px rgba(225,29,72,0.25);">Eliminar</button>
-    </div>
-   </div>
-  </div>
-
-  <!-- PLANTILLA PARA NUEVO RECURSO -->
-  <template id="custom-resource-template">
-   <article class="canva-card resource-card">
-    <div class="card-actions">
-     <button class="card-action edit-action" type="button" aria-label="Editar recurso"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-     <button class="card-action delete-action" type="button" aria-label="Eliminar recurso"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-    </div>
-    <div class="canva-tag resource-icon" style="background: linear-gradient(135deg, #a568e9, #7357e8);"><i data-lucide="link" style="width:23px;height:23px"></i></div>
-    <h3 class="custom-title"></h3>
-    <p class="custom-description"></p>
-    <a class="canva-button link-button custom-url" target="_blank" rel="noopener noreferrer">Visitar <i data-lucide="arrow-up-right" style="width:16px;height:16px"></i></a>
-   </article>
-  </template>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      if (window.lucide) {
+      const ADMIN_PASSWORD = "Liby2026";
+
+      const defaultData = {
+        links: [{ id: 'link-1', title: 'Canva Design', desc: 'Plataforma de diseño gráfico para presentaciones y documentos visuales.', url: 'https://www.canva.com' }],
+        reviews: [{ id: 'rev-1', title: 'Notion Workspace', score: '9.5/10', desc: 'Excelente plataforma para organizar proyectos en equipo y documentar notas.', author: 'María G.' }],
+        photos: [{ id: 'photo-1', title: 'Reunión de Equipo', desc: 'Trabajo colaborativo', url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80', cardClass: 'wide' }]
+      };
+
+      function loadData(key) {
+        const stored = localStorage.getItem('recursoep_' + key);
+        if (!stored) {
+          localStorage.setItem('recursoep_' + key, JSON.stringify(defaultData[key]));
+          return defaultData[key];
+        }
+        return JSON.parse(stored);
+      }
+
+      function saveData(key, data) {
+        localStorage.setItem('recursoep_' + key, JSON.stringify(data));
+      }
+
+      let state = {
+        links: loadData('links'),
+        reviews: loadData('reviews'),
+        photos: loadData('photos')
+      };
+
+      function escapeHtml(str) {
+        return (str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      }
+
+      function renderLinks() {
+        const grid = document.getElementById("links-grid");
+        grid.innerHTML = "";
+        state.links.forEach(item => {
+          const card = document.createElement("article");
+          card.className = "resource-card";
+          card.dataset.id = item.id;
+          card.dataset.type = "link";
+          card.innerHTML = `
+            <div class="card-actions">
+              <button class="card-action edit-action" type="button" title="Editar"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+              <button class="card-action delete-action" type="button" title="Eliminar"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+            </div>
+            <div class="resource-icon"><i data-lucide="link" style="width:23px;height:23px"></i></div>
+            <h3 class="card-title">${escapeHtml(item.title)}</h3>
+            <p class="card-desc">${escapeHtml(item.desc)}</p>
+            <a class="link-button card-link" href="${escapeHtml(item.url)}" target="_blank" rel="noopener">Visitar sitio <i data-lucide="arrow-up-right" style="width:16px;height:16px"></i></a>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      function renderReviews() {
+        const grid = document.getElementById("reviews-grid");
+        grid.innerHTML = "";
+        state.reviews.forEach(item => {
+          const card = document.createElement("article");
+          card.className = "review-card";
+          card.dataset.id = item.id;
+          card.dataset.type = "review";
+          card.innerHTML = `
+            <div class="card-actions">
+              <button class="card-action edit-action" type="button" title="Editar"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+              <button class="card-action delete-action" type="button" title="Eliminar"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+            </div>
+            <h3 class="card-title">${escapeHtml(item.title)}</h3>
+            <div class="rating-row"><span class="score card-score">Puntuación: ${escapeHtml(item.score)}</span></div>
+            <p class="card-desc">${escapeHtml(item.desc)}</p>
+            <p class="reviewer card-author">Por: ${escapeHtml(item.author)}</p>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      function renderPhotos() {
+        const grid = document.getElementById("photos-grid");
+        grid.innerHTML = "";
+        state.photos.forEach(item => {
+          const card = document.createElement("figure");
+          card.className = `photo-card ${item.cardClass || ''}`.trim();
+          card.dataset.id = item.id;
+          card.dataset.type = "photo";
+          card.innerHTML = `
+            <div class="card-actions">
+              <button class="card-action edit-action" type="button" title="Editar"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
+              <button class="card-action delete-action" type="button" title="Eliminar"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+            </div>
+            <img src="${escapeHtml(item.url)}" alt="${escapeHtml(item.title)}" class="card-img">
+            <figcaption class="photo-caption">
+              <strong class="card-title">${escapeHtml(item.title)}</strong>
+              <span class="card-desc">${escapeHtml(item.desc)}</span>
+            </figcaption>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      function renderAll() {
+        renderLinks();
+        renderReviews();
+        renderPhotos();
         lucide.createIcons();
       }
 
-      // CONTRASEÑA DE ADMINISTRADOR
-      const ADMIN_PASSWORD = "Liby2026";
+      renderAll();
 
-      // Manejo de pestañas
+      const checkPassword = () => {
+        const inputPass = prompt("🔒 Se requiere contraseña para modificar Enlaces o Fotos:");
+        if (inputPass === ADMIN_PASSWORD) return true;
+        alert("❌ Contraseña incorrecta. Acción no permitida.");
+        return false;
+      };
+
       const tabs = document.querySelectorAll(".tab-button");
       const panels = document.querySelectorAll(".panel");
-      const addBtnText = document.getElementById("add-btn-text");
-
-      const updateAddButtonText = (activeTabId) => {
-        if (!addBtnText) return;
-        if (activeTabId === "tab-links") addBtnText.textContent = "Añadir Recurso";
-        else if (activeTabId === "tab-reviews") addBtnText.textContent = "Añadir Evaluación";
-        else if (activeTabId === "tab-photos") addBtnText.textContent = "Añadir Foto";
-      };
+      const itemTypeSelect = document.getElementById("item-type");
 
       const activateTab = (tab) => {
-        tabs.forEach(item => {
-          item.classList.toggle("is-active", item === tab);
-          item.setAttribute("aria-selected", String(item === tab));
-        });
+        tabs.forEach(item => item.classList.toggle("is-active", item === tab));
         panels.forEach(panel => panel.classList.toggle("is-active", panel.id === tab.dataset.panel));
-        updateAddButtonText(tab.id);
       };
-
       tabs.forEach(tab => tab.addEventListener("click", () => activateTab(tab)));
 
-      // Modal y Formulario
       const modal = document.getElementById("add-modal");
-      const itemTypeSelect = document.getElementById("item-type");
-      const fieldsLink = document.getElementById("fields-link");
-      const fieldsReview = document.getElementById("fields-review");
-      const fieldsPhoto = document.getElementById("fields-photo");
-      const fieldsAuth = document.getElementById("fields-auth");
-      const authPasswordInput = document.getElementById("auth-password");
-      const formMessage = document.getElementById("form-message");
-
-      // Modal de Eliminación
-      const deleteModal = document.getElementById("delete-modal");
-      const deletePasswordInput = document.getElementById("delete-password");
-      const deleteFormMessage = document.getElementById("delete-form-message");
-      let pendingDeleteCard = null;
-
-      let editingCard = null;
+      let editingItem = null;
 
       const updateFormFields = () => {
         const type = itemTypeSelect.value;
-        fieldsLink.style.display = type === "link" ? "block" : "none";
-        fieldsReview.style.display = type === "review" ? "block" : "none";
-        fieldsPhoto.style.display = type === "photo" ? "block" : "none";
-        
-        // Muestra el campo de contraseña únicamente para Links y Fotos
-        if (fieldsAuth) {
-          fieldsAuth.style.display = (type === "link" || type === "photo") ? "block" : "none";
+        const fieldUrl = document.getElementById("field-url");
+        const fieldScore = document.getElementById("field-score");
+        const fieldAuthor = document.getElementById("field-author");
+        const labelUrl = document.getElementById("label-url");
+        const labelTitle = document.getElementById("label-title");
+
+        if (type === "link") {
+          fieldUrl.style.display = "block";
+          fieldScore.style.display = "none";
+          fieldAuthor.style.display = "none";
+          labelTitle.textContent = "Título del Recurso";
+          labelUrl.textContent = "Enlace Web (URL)";
+        } else if (type === "review") {
+          fieldUrl.style.display = "none";
+          fieldScore.style.display = "block";
+          fieldAuthor.style.display = "block";
+          labelTitle.textContent = "Título del Tema / Herramienta";
+        } else if (type === "photo") {
+          fieldUrl.style.display = "block";
+          fieldScore.style.display = "none";
+          fieldAuthor.style.display = "none";
+          labelTitle.textContent = "Título de la Foto";
+          labelUrl.textContent = "URL de la Imagen";
         }
       };
-
       itemTypeSelect.addEventListener("change", updateFormFields);
 
-      // Delegación de acciones en tarjetas (Editar y Eliminar)
-      document.addEventListener("click", (event) => {
-        const action = event.target.closest(".card-action");
-        if (!action) return;
-        const card = action.closest("article, figure");
-        if (!card) return;
+      const openModal = (type = null, id = null) => {
+        const activeTabId = document.querySelector(".tab-button.is-active").id;
 
-        if (action.classList.contains("delete-action")) {
-          // Si es evaluación (pública), eliminar directamente
-          if (card.classList.contains("review-card")) {
-            card.remove();
-          } else {
-            // Si es Enlace o Foto, pedir contraseña de confirmación
-            pendingDeleteCard = card;
-            deletePasswordInput.value = "";
-            deleteFormMessage.textContent = "";
-            deleteModal.classList.add("is-open");
+        if (id) {
+          if (type === "link" || type === "photo") {
+            if (!checkPassword()) return;
           }
-        } else if (action.classList.contains("edit-action")) {
-          document.querySelectorAll(".is-editing").forEach(c => c.classList.remove("is-editing"));
-          card.classList.add("is-editing");
-          openModal(card);
-        }
-      });
+          editingItem = { type, id };
+          itemTypeSelect.value = type;
 
-      // Confirmar o Cancelar Eliminación
-      const closeDeleteModal = () => {
-        deleteModal.classList.remove("is-open");
-        deletePasswordInput.value = "";
-        deleteFormMessage.textContent = "";
-        pendingDeleteCard = null;
-      };
-
-      document.getElementById("close-delete-modal").addEventListener("click", closeDeleteModal);
-      document.getElementById("cancel-delete-btn").addEventListener("click", closeDeleteModal);
-
-      document.getElementById("confirm-delete-btn").addEventListener("click", () => {
-        if (!pendingDeleteCard) return;
-        const enteredPass = deletePasswordInput.value.trim();
-        if (enteredPass !== ADMIN_PASSWORD) {
-          deleteFormMessage.textContent = "🔒 Contraseña incorrecta. No tienes permiso para eliminar este elemento.";
-          return;
-        }
-        pendingDeleteCard.remove();
-        closeDeleteModal();
-      });
-
-      const openModal = (card = null) => {
-        editingCard = card;
-        formMessage.textContent = "";
-        if (authPasswordInput) authPasswordInput.value = "";
-
-        if (card) {
-          if (card.classList.contains("review-card")) {
-            itemTypeSelect.value = "review";
-            const titleEl = card.querySelector("h3");
-            const scoreEl = card.querySelector(".score");
-            const commentEl = card.querySelector("p:not(.reviewer)");
-            const reviewerEl = card.querySelector(".reviewer");
-
-            document.getElementById("review-title").value = titleEl ? titleEl.textContent.trim() : "";
-            document.getElementById("review-score").value = scoreEl ? parseFloat(scoreEl.textContent) || 9 : 9;
-            document.getElementById("review-comment").value = commentEl ? commentEl.textContent.trim() : "";
-            document.getElementById("review-author").value = reviewerEl ? reviewerEl.textContent.replace(/^—\s*/, '').trim() : "";
-          } else if (card.classList.contains("photo-card")) {
-            itemTypeSelect.value = "photo";
-            const imgEl = card.querySelector("img");
-            const titleEl = card.querySelector(".photo-caption strong");
-            const dateEl = card.querySelector(".photo-caption span");
-
-            document.getElementById("photo-title").value = titleEl ? titleEl.textContent.trim() : "";
-            document.getElementById("photo-url").value = imgEl ? imgEl.getAttribute("src") : "";
-            document.getElementById("photo-date").value = dateEl ? dateEl.textContent.trim() : "";
-
-            let size = "normal";
-            if (card.classList.contains("tall")) size = "tall";
-            else if (card.classList.contains("wide")) size = "wide";
-            document.getElementById("photo-size").value = size;
-          } else {
-            itemTypeSelect.value = "link";
-            const titleEl = card.querySelector(".custom-title, h3");
-            const urlEl = card.querySelector(".custom-url, a");
-            const noteEl = card.querySelector(".custom-description, p");
-
-            document.getElementById("resource-name").value = titleEl ? titleEl.textContent.trim() : "";
-            document.getElementById("resource-url").value = urlEl ? (urlEl.getAttribute("href") || "") : "";
-            document.getElementById("resource-note").value = noteEl ? noteEl.textContent.trim() : "";
+          const itemData = state[type + 's'].find(x => x.id === id);
+          if (itemData) {
+            document.getElementById("input-title").value = itemData.title || "";
+            document.getElementById("input-desc").value = itemData.desc || "";
+            if (type === "link" || type === "photo") {
+              document.getElementById("input-url").value = itemData.url || "";
+            } else if (type === "review") {
+              document.getElementById("input-score").value = itemData.score || "";
+              document.getElementById("input-author").value = itemData.author || "";
+            }
           }
         } else {
+          editingItem = null;
+          if (activeTabId === "tab-links") itemTypeSelect.value = "link";
+          else if (activeTabId === "tab-reviews") itemTypeSelect.value = "review";
+          else if (activeTabId === "tab-photos") itemTypeSelect.value = "photo";
           document.getElementById("resource-form").reset();
-          const activePanel = document.querySelector(".panel.is-active");
-          if (activePanel) {
-            if (activePanel.id === "reviews-panel") itemTypeSelect.value = "review";
-            else if (activePanel.id === "photos-panel") itemTypeSelect.value = "photo";
-            else itemTypeSelect.value = "link";
-          }
         }
 
         updateFormFields();
@@ -701,161 +492,87 @@
       const closeModal = () => {
         modal.classList.remove("is-open");
         document.getElementById("resource-form").reset();
-        formMessage.textContent = "";
-        if (editingCard) {
-          editingCard.classList.remove("is-editing");
-          editingCard = null;
-        }
+        document.getElementById("form-message").textContent = "";
+        editingItem = null;
       };
 
-      document.getElementById("open-modal-button").addEventListener("click", () => openModal(null));
+      document.getElementById("open-modal-button").addEventListener("click", () => openModal());
       document.getElementById("close-modal-button").addEventListener("click", closeModal);
-      modal.addEventListener("click", (event) => { if (event.target === modal) closeModal(); });
-      document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeModal(); });
+      modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
 
-      // Generar estrellas según puntuación
-      const getStarsHtml = (scoreNum) => {
-        const rating5 = Math.round(Math.min(10, Math.max(1, scoreNum)) / 2);
-        let html = '';
-        for (let i = 1; i <= 5; i++) {
-          html += i <= rating5 ? `<i data-lucide="star" fill="currentColor"></i>` : `<i data-lucide="star"></i>`;
+      document.addEventListener("click", (e) => {
+        const action = e.target.closest(".card-action");
+        if (!action) return;
+        const card = action.closest("[data-id]");
+        if (!card) return;
+
+        const type = card.dataset.type;
+        const id = card.dataset.id;
+
+        if (action.classList.contains("delete-action")) {
+          if (type === "link" || type === "photo") {
+            if (!checkPassword()) return;
+          }
+          if (confirm("¿Seguro que deseas eliminar este elemento?")) {
+            state[type + 's'] = state[type + 's'].filter(x => x.id !== id);
+            saveData(type + 's', state[type + 's']);
+            renderAll();
+          }
+        } else if (action.classList.contains("edit-action")) {
+          openModal(type, id);
         }
-        return html;
-      };
+      });
 
-      // Guardar cambios o nuevo elemento
-      document.getElementById("resource-form").addEventListener("submit", (event) => {
-        event.preventDefault();
+      document.getElementById("resource-form").addEventListener("submit", (e) => {
+        e.preventDefault();
         const type = itemTypeSelect.value;
 
-        // Validar Contraseña para Links y Fotos
-        if (type === "link" || type === "photo") {
-          const enteredPass = authPasswordInput ? authPasswordInput.value.trim() : "";
-          if (enteredPass !== ADMIN_PASSWORD) {
-            formMessage.textContent = "🔒 Contraseña incorrecta. Se requiere la clave de administración para modificar Enlaces o Fotos.";
-            return;
-          }
+        if (!editingItem && (type === "link" || type === "photo")) {
+          if (!checkPassword()) return;
         }
 
-        if (type === "link") {
-          const title = document.getElementById("resource-name").value.trim();
-          const url = document.getElementById("resource-url").value.trim() || "#";
-          const note = document.getElementById("resource-note").value.trim() || "Sin descripción.";
+        const title = document.getElementById("input-title").value.trim();
+        const url = document.getElementById("input-url").value.trim();
+        const desc = document.getElementById("input-desc").value.trim();
+        const score = document.getElementById("input-score").value.trim();
+        const author = document.getElementById("input-author").value.trim();
 
-          if (!title) { formMessage.textContent = "Ingresa un título para el recurso."; return; }
+        const listKey = type + 's';
 
-          if (editingCard && !editingCard.classList.contains("review-card") && !editingCard.classList.contains("photo-card")) {
-            const titleEl = editingCard.querySelector(".custom-title, h3");
-            const urlEl = editingCard.querySelector(".custom-url, a");
-            const noteEl = editingCard.querySelector(".custom-description, p");
-            if (titleEl) titleEl.textContent = title;
-            if (urlEl) urlEl.setAttribute("href", url);
-            if (noteEl) noteEl.textContent = note;
-          } else {
-            const card = document.createElement("article");
-            card.className = "canva-card resource-card";
-            card.innerHTML = `
-              <div class="card-actions">
-                <button class="card-action edit-action" type="button" aria-label="Editar recurso"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-                <button class="card-action delete-action" type="button" aria-label="Eliminar recurso"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-              </div>
-              <div class="canva-tag resource-icon" style="background: linear-gradient(135deg, #a568e9, #7357e8);"><i data-lucide="link" style="width:23px;height:23px"></i></div>
-              <h3 class="canva-text custom-title">${title}</h3>
-              <p class="canva-text custom-description">${note}</p>
-              <a class="canva-button link-button custom-url" href="${url}" target="_blank" rel="noopener noreferrer">Visitar <i data-lucide="arrow-up-right" style="width:16px;height:16px"></i></a>
-            `;
-            document.getElementById("links-grid").appendChild(card);
+        if (editingItem) {
+          const item = state[listKey].find(x => x.id === editingItem.id);
+          if (item) {
+            item.title = title;
+            item.desc = desc;
+            if (type === "link" || type === "photo") item.url = url;
+            if (type === "review") {
+              item.score = score || "10/10";
+              item.author = author || "Anónimo";
+            }
           }
-        } else if (type === "review") {
-          const title = document.getElementById("review-title").value.trim();
-          const score = parseFloat(document.getElementById("review-score").value) || 9.0;
-          const comment = document.getElementById("review-comment").value.trim() || "Sin comentarios adicionales.";
-          const author = document.getElementById("review-author").value.trim() || "Miembro del Equipo";
-
-          if (!title) { formMessage.textContent = "Ingresa un título para la evaluación."; return; }
-
-          const percentage = Math.min(100, Math.max(10, score * 10));
-
-          if (editingCard && editingCard.classList.contains("review-card")) {
-            const titleEl = editingCard.querySelector("h3");
-            const starsEl = editingCard.querySelector(".stars");
-            const meterEl = editingCard.querySelector(".meter span");
-            const scoreEl = editingCard.querySelector(".score");
-            const commentEl = editingCard.querySelector("p:not(.reviewer)");
-            const reviewerEl = editingCard.querySelector(".reviewer");
-
-            if (titleEl) titleEl.textContent = title;
-            if (starsEl) starsEl.innerHTML = getStarsHtml(score);
-            if (meterEl) meterEl.style.width = `${percentage}%`;
-            if (scoreEl) scoreEl.textContent = `${score} / 10`;
-            if (commentEl) commentEl.textContent = comment;
-            if (reviewerEl) reviewerEl.textContent = `— ${author}`;
-          } else {
-            const card = document.createElement("article");
-            card.className = "canva-card review-card";
-            card.innerHTML = `
-              <div class="card-actions">
-                <button class="card-action edit-action" type="button" aria-label="Editar evaluación"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-                <button class="card-action delete-action" type="button" aria-label="Eliminar evaluación"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-              </div>
-              <h3 class="canva-text">${title}</h3>
-              <div class="stars" aria-label="${score} de 10">${getStarsHtml(score)}</div>
-              <div class="rating-row">
-                <div class="meter"><span style="width:${percentage}%"></span></div>
-                <span class="canva-text score">${score} / 10</span>
-              </div>
-              <p class="canva-text">${comment}</p>
-              <p class="canva-text reviewer">— ${author}</p>
-            `;
-            document.querySelector("#reviews-panel .review-grid").appendChild(card);
-          }
-        } else if (type === "photo") {
-          const title = document.getElementById("photo-title").value.trim();
-          const url = document.getElementById("photo-url").value.trim() || "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80";
-          const date = document.getElementById("photo-date").value.trim() || "Reciente";
-          const size = document.getElementById("photo-size").value;
-
-          if (!title) { formMessage.textContent = "Ingresa un título para la fotografía."; return; }
-
-          let sizeClass = "";
-          if (size === "tall") sizeClass = "tall";
-          else if (size === "wide") sizeClass = "wide";
-
-          if (editingCard && editingCard.classList.contains("photo-card")) {
-            editingCard.className = `photo-card ${sizeClass}`.trim();
-            const imgEl = editingCard.querySelector("img");
-            const titleEl = editingCard.querySelector(".photo-caption strong");
-            const dateEl = editingCard.querySelector(".photo-caption span");
-
-            if (imgEl) { imgEl.src = url; imgEl.alt = title; }
-            if (titleEl) titleEl.textContent = title;
-            if (dateEl) dateEl.textContent = date;
-          } else {
-            const card = document.createElement("figure");
-            card.className = `photo-card ${sizeClass}`.trim();
-            card.setAttribute("tabindex", "0");
-            card.innerHTML = `
-              <div class="card-actions">
-                <button class="card-action edit-action" type="button" aria-label="Editar foto"><i data-lucide="pencil" style="width:14px;height:14px"></i></button>
-                <button class="card-action delete-action" type="button" aria-label="Eliminar foto"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
-              </div>
-              <img class="canva-image" src="${url}" alt="${title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80'">
-              <figcaption class="photo-caption">
-                <strong class="canva-text">${title}</strong>
-                <span class="canva-text">${date}</span>
-              </figcaption>
-            `;
-            document.querySelector("#photos-panel .photo-grid").appendChild(card);
-          }
+        } else {
+          const newItem = {
+            id: type + '-' + Date.now(),
+            title,
+            desc,
+            url,
+            score: score || "10/10",
+            author: author || "Anónimo",
+            cardClass: type === "photo" ? "wide" : undefined
+          };
+          state[listKey].push(newItem);
         }
 
-        if (window.lucide) {
-          lucide.createIcons();
-        }
+        saveData(listKey, state[listKey]);
+        renderAll();
+
+        if (type === "link") activateTab(document.getElementById("tab-links"));
+        else if (type === "review") activateTab(document.getElementById("tab-reviews"));
+        else if (type === "photo") activateTab(document.getElementById("tab-photos"));
 
         closeModal();
       });
     });
   </script>
- </body>
+</body>
 </html>
