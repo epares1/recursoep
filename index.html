@@ -363,7 +363,7 @@
       async function githubGetFile() {
         const res = await fetch(`${githubApiUrl()}?ref=${githubConfig.branch}&t=${Date.now()}`, {
           headers: {
-            Authorization: `token ${githubConfig.token}`,
+            Authorization: `Bearer ${githubConfig.token}`,
             Accept: "application/vnd.github+json"
           }
         });
@@ -385,7 +385,7 @@
         const res = await fetch(githubApiUrl(), {
           method: "PUT",
           headers: {
-            Authorization: `token ${githubConfig.token}`,
+            Authorization: `Bearer ${githubConfig.token}`,
             Accept: "application/vnd.github+json"
           },
           body: JSON.stringify(body)
