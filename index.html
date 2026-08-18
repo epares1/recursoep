@@ -309,23 +309,17 @@
 
       // ──────────────────────────────────────────────────────────────
       // CONFIGURACIÓN DE GITHUB
-      // Los datos se guardan como un archivo JSON dentro de TU PROPIO
-      // repositorio (nada de servicios externos). Cada vez que alguien
-      // añade/edita/borra algo, se crea un commit en ese archivo.
-      //
-      // Necesitas un Personal Access Token (fine-grained) con permiso
-      // "Contents: Read and write" LIMITADO a este repositorio.
-      // Instrucciones completas al final del mensaje del chat.
-      //
-      // Mientras "token" siga en "TU_TOKEN_DE_ACCESO", el sitio usará
-      // almacenamiento local (no se sincroniza entre dispositivos).
+      // owner, repo, branch y path ya están listos para tu repositorio.
+      // Lo ÚNICO que falta es pegar tu token nuevo abajo, en el campo
+      // "token", reemplazando TU_TOKEN_DE_ACCESO. Pégalo con Ctrl+V,
+      // nunca lo escribas a mano (un solo carácter mal lo invalida).
       // ──────────────────────────────────────────────────────────────
       const githubConfig = {
-        owner: "epares1",          // tu usuario u organización de GitHub
-        repo: "recursoep",       // el nombre del repositorio del sitio
-        branch: "main",               // la rama donde vive el sitio
-        path: "data/site-data.json",  // ruta del archivo de datos dentro del repo
-        token: "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"   // fine-grained PAT, solo Contents: Read/Write, solo este repo
+        owner: "epares1",
+        repo: "recursoep",
+        branch: "main",
+        path: "data/site-data.json",
+        token: "TU_TOKEN_DE_ACCESO"
       };
 
       const defaultData = {
@@ -742,4 +736,3 @@
   </script>
 </body>
 </html>
-
